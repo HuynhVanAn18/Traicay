@@ -86,7 +86,7 @@
                             STT
                           </th>
                           <th>
-                            {{ __('Mã Đơn Hàng') }}
+                            {{ __('Mã Đơn Hàng - Thay doi de kiem tra github ') }}
                           </th>
                           <th>
                             {{ __('Ngày Đặt Hàng') }}
