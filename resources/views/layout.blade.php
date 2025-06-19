@@ -459,6 +459,14 @@
                         swal("{{__('Vui Lòng Nhập Số Lượng Nhỏ Hơn')}} "+cart_product_quantity,"", "warning");
                     }
                 }else{
+                    console.log(cart_product_id);
+                    console.log(cart_product_name);
+                    console.log(cart_product_image);
+                    console.log(cart_product_price);
+                    console.log(cart_product_qty);
+                    console.log(cart_product_quantity);
+                    console.log(_token);
+                //ajax thêm giỏ hàng
                     $.ajax({
                     url: '{{url('/add-cart-ajax')}}',
                     method: 'POST',

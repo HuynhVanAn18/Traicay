@@ -1,0 +1,9 @@
+// Targets 
+
+1. Delete product outside shopping cart when user completed checkout 
+
+2. Solve delivery cost problem 
+
+3. Change how user change order's state 
+
+

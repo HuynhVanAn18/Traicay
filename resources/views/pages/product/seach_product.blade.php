@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Session;
+@endphp
 @extends('layout')
 @section('content')
     <section class="featured spad">
