@@ -21,48 +21,48 @@
                                 <div class="col-lg-12">
                                     <div class="checkout__input">
                                         <p>{{__('Họ & Tên')}}<span>*</span></p>
-                                        <input type="text" placeholder="{{__('Vui lòng nhập họ và tên')}}" id="shipping_name" name="shipping_name" class="shipping_name">
+                                        <input type="text" placeholder="{{__('Vui lòng nhập họ và tên')}}" id="shipping_name" name="shipping_name" class="shipping_name" value="{{ Session::get('shipping_name', '') }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>{{__('Thành Phố')}}<span>*</span></p>
-                                <input type="text" placeholder="{{__('Vui lòng nhập thành phố')}}" name="shipping_city" class="shipping_city">
+                                <input type="text" placeholder="{{__('Vui lòng nhập thành phố')}}" name="shipping_city" class="shipping_city" value="{{ Session::get('shipping_city', '') }}">
                             </div>
                             <div class="checkout__input">
                                 <p>{{__('Địa Chỉ')}}<span>*</span></p>
-                                <input type="text" placeholder="{{__('Số nhà, Khu phố, Tên đường, Phường/Quận')}}" class="shipping_address" name="shipping_address"  id="shipping_address">
+                                <input type="text" placeholder="{{__('Số nhà, Khu phố, Tên đường, Phường/Quận')}}" class="shipping_address" name="shipping_address"  id="shipping_address" value="{{ Session::get('shipping_address', '') }}">
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>{{__('Số Điện Thoại')}}<span>*</span></p>
-                                        <input type="text" placeholder="{{__('Vui lòng nhập số điện thoại')}}" id="shipping_phone" name="shipping_phone" class="shipping_phone">
+                                        <input type="text" placeholder="{{__('Vui lòng nhập số điện thoại')}}" id="shipping_phone" name="shipping_phone" class="shipping_phone" value="{{ Session::get('shipping_phone', '') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text" placeholder="{{__('Vui lòng nhập địa chỉ email')}}" id="shipping_email" name="shipping_email" class="shipping_email">
+                                        <input type="text" placeholder="{{__('Vui lòng nhập địa chỉ email')}}" id="shipping_email" name="shipping_email" class="shipping_email" value="{{ Session::get('shipping_email', '') }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>{{__('Ghi Chú')}}<span></span></p>
-                                <input type="text"placeholder="{{__('Vui lòng nhập ghi chú của bạn')}}" name="shipping_note" class="shipping_note">
+                                <input type="text"placeholder="{{__('Vui lòng nhập ghi chú của bạn')}}" name="shipping_note" class="shipping_note" value="{{ Session::get('shipping_note', '') }}">
                             </div>
                             <div class="checkout__input__checkbox">
                                 <p>{{__('Phương Thức Thanh Toán')}}<span>*</span></p>
                                 <label for="payment">
                                                 {{ __('Thanh toán VNPAY')}}
-                                                <input id="payment" type="radio" name ="payment" class="payment" value="0">
+                                                <input id="payment" type="radio" name ="payment" class="payment" value="0" {{ Session::get('payment') == '0' ? 'checked' : '' }}>
                                                 
                                                 <img src="{{asset('frontend/image/payment2.png')}}" width="40px" height="30px">
                                                 <span class="checkmark"></span>
                                 </label>
                                 <label for="paypal">
                                                 {{ __('Thanh toán khi nhận hàng') }}
-                                                <input id="paypal" checked="checked" type="radio" name ="payment" class="payment" value="1">
+                                                <input id="paypal" type="radio" name ="payment" class="payment" value="1" {{ Session::get('payment') == '1' || !Session::get('payment') ? 'checked' : '' }}>
 
                                                 <img src="{{asset('frontend/image/payment1.png')}}" width="30px" height="30px">
                                                 <span class="checkmark"></span>
@@ -115,7 +115,7 @@
                                       </div>
                                       @if(Session::get('customer_id'))
                                         @if(Session::get('cart'))
-                                            <button name="calculate" type="button" class="site-btn calculate">{{__('Tính Phí')}}</button>
+                                            <button name="calculate" id="calculate" type="button" class="site-btn calculate">{{__('Tính Phí')}}</button>
                                         @else
                                             <button name="null-cart" type="button" class="site-btn null-cart">{{__('Tính Phí')}}</button>
                                         @endif   
@@ -161,11 +161,12 @@
                                         @endif
                                     @endforeach
                                 @endif
-                                @if(Session::get('fee'))
-                                        <div class="checkout__order__products"><a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span>{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span>
+                                <!-- <a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span id="shipping-fee">{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span> -->
+                                <!-- @if(Session::get('fee')) -->
+                                        <div class="checkout__order__products"><a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span id="shipping-fee">{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span>
                                         </div>
                                         <?php $total_after_fee = $total + Session::get('fee'); ?>
-                                        @endif 
+                                        <!-- @endif  -->
                                         <div class="checkout__order__products">{{__('Tổng Tiền Còn')}} :
                                             <span>
                                             @php 
@@ -207,3 +208,18 @@
     </section>
     <!-- Checkout Section End -->
 @endsection
+
+<script>
+function printLocationCodes() {
+    const city = document.getElementById('city').value;
+    const province = document.getElementById('province').value;
+    const ward = document.getElementById('wards').value;
+    console.log('City/Province code:', city);
+    console.log('District (Province) code:', province);
+    console.log('Ward code:', ward);
+}
+
+document.getElementById('city').addEventListener('change', printLocationCodes);
+document.getElementById('province').addEventListener('change', printLocationCodes);
+document.getElementById('wards').addEventListener('change', printLocationCodes);
+</script>

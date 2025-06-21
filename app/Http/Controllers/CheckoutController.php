@@ -230,21 +230,28 @@ class CheckoutController extends Controller
         );
 
         // Gửi email xác nhận đơn hàng 
-        Mail::send(
-            'pages.email.send_mail',
-            ['cart_array' => $cart_array, 'Shipping_array' => $Shipping_array, 'ordercode_mail' => $ordercode_mail],
-            function ($message) use ($title_mail, $data) {
-                $message->to($data['email'])->subject($title_mail);
-                $message->from($data['email'], $title_mail);
-            }
-        );
+        try {
+            Mail::send(
+                'pages.email.send_mail',
+                ['cart_array' => $cart_array, 'Shipping_array' => $Shipping_array, 'ordercode_mail' => $ordercode_mail],
+                function ($message) use ($title_mail, $data) {
+                    $message->to($data['email'])->subject($title_mail);
+                    $message->from($data['email'], $title_mail);
+                }
+            );
+        } catch (\Exception $e) {
+            // Nếu gửi email thất bại, xóa dữ liệu đơn hàng khỏi session
+            Session::forget('coupon');
+            Session::forget('fee');
+            Session::forget('cart');
+            Log::error('Send mail failed: ' . $e->getMessage());
+            return response()->json(['error' => 'Gửi email thất bại. Đã xóa dữ liệu đơn hàng khỏi session.'], 500);
+        }
 
-        // // Debug: show cart before clearing
-        // dump('Cart before clearing:', Session::get('cart'));
-
-        Session::forget('coupon'); // Xóa mã giảm giá khỏi session
-        Session::forget('fee'); // Xóa phí vận chuyển khỏi session
-        Session::forget('cart'); // Xóa giỏ hàng khỏi session ? Câu lệnh hiện không chạy!
+        // Sau khi gửi email thành công, xóa dữ liệu đơn hàng khỏi session
+        Session::forget('coupon');
+        Session::forget('fee');
+        Session::forget('cart');
 
         // Điều hướng đến trang xác nhận đơn hàng sau khi lưu đơn hàng thành công
         return redirect()->route('order.confirmation')->with('cart', $cart); 
@@ -391,7 +398,7 @@ class CheckoutController extends Controller
                         Session::save();
                     }
                 } else {
-                    Session::put('fee', 25000);
+                    Session::put('fee', 0);
                     Session::save();
                 }
             }
@@ -509,7 +516,7 @@ class CheckoutController extends Controller
             $reset->customer_password = md5($data['password_account']);
             $reset->customer_token = $token_random;
             $reset->save();
-            return redirect('login-checkout')->with('message', 'Mật khẩu đã được cập nhập');
+            return redirect('login-checkout')->with('message', 'Mật khẩu đã được cập nhật');
         } else {
             return redirect('reset-password')->with('error', 'Link của bạn đã hết hạn, vui lòng nhập lại email');
         }
@@ -530,5 +537,26 @@ class CheckoutController extends Controller
         } else {
             return Redirect::to('/login-checkout')->with('message', 'Tài Khoản Hoặc Mật Khẩu Chưa Đúng !!');
         }
+    }
+
+
+    public function setShippingSession(Request $request)
+{
+    // Store all shipping info and fee in session
+    Session::put('shipping_name', $request->shipping_name);
+    Session::put('shipping_city', $request->shipping_city);
+    Session::put('shipping_address', $request->shipping_address);
+    Session::put('shipping_phone', $request->shipping_phone);
+    Session::put('shipping_email', $request->shipping_email);
+    Session::put('shipping_note', $request->shipping_note);
+    Session::put('payment', $request->payment);
+    Session::put('fee', $request->fee);
+
+    return response()->json(['status' => 'success']);
+}
+public function setFee(Request $request)
+    {
+        Session::put('fee', $request->fee);
+        return response()->json(['status' => 'success', 'fee' => $request->fee]);
     }
 }

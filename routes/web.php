@@ -213,3 +213,9 @@ Route::get('/all-ads','App\Http\Controllers\SliderController@all_ads');
 Route::get('/delete-ads/{ads_id}','App\Http\Controllers\SliderController@delete_ads');
 Route::get('/unactive-ads/{ads_id}','App\Http\Controllers\SliderController@unactive_ads');
 Route::get('/active-ads/{ads_id}','App\Http\Controllers\SliderController@active_ads');
+
+
+// Những tuyến bổ sung 21/06/2025 
+Route::post('/set-shipping-session', 'App\Http\Controllers\CheckoutController@setShippingSession');
+Route::post('/set-fee', 'App\Http\Controllers\CheckoutController@setFee');
+

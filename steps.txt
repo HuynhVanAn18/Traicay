@@ -1,9 +1,11 @@
 // Targets 
+* HOÀN THÀNH
+1. Xóa sản phẩm ra khỏi giỏ hàng khi thanh toán thành công - ĐÃ HOÀN THÀNH
+2. Thay đổi cách tính phí giao hàng và không bị mất dữ liệu khi tính phí - ĐÃ HOÀN THÀNH
 
-1. Delete product outside shopping cart when user completed checkout 
+* CHƯA HOÀN THÀNH
+3. Thêm hình thức thanh toán bằng VNPay - ĐANG XEM 
+4. Sửa cách thức cập nhật trạng thái đơn hàng - ĐANG XEM 
 
-2. Solve delivery cost problem 
-
-3. Change how user change order's state 
 
 
