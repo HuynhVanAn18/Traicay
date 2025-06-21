@@ -25,7 +25,7 @@ use App\Models\Cateblog;
 use App\Models\Category;
 use App\Models\Products;
 use App\Models\Brand;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 use App\Controllers\CartController;
 
@@ -119,24 +119,26 @@ class CheckoutController extends Controller
         } else
             return Redirect::to('admin')->send();
     }
+
+    // Hàm để lưu đơn hàng khi người dùng đã điền thông tin giao hàng và chọn phương thức vận chuyển
     public function save_order(Request $request)
     {
         dump($request->all());
         $data = $request->all();
-        //  dd($data); // Check whether shopping is empty or not
-        //tru coupon
+        // Kiểm tra xem có sử dụng mã giảm giá hay không 
         if (Session::get('coupon') != Null) {
             $coupon = Coupon::where('coupon_code', $data['order_coupon'])->first();
-            $coupon->coupon_qty = $coupon->coupon_qty - 1;
+            $coupon->coupon_qty = $coupon->coupon_qty - 1; // Giảm số lượng mã giảm giá
             $coupon_mail = $coupon->coupon_name;
             $coupon_number = $coupon->coupon_number;
             $coupon->save();
-        } else {
+        } else { // Nếu không có mã giảm giá thì gán giá trị mặc định
             $coupon_mail = 'Không có';
             $coupon_number = 0;
         }
 
-        //lưu shipping
+        // Người dùng sẽ chọn phương thức vận chuyển và điền thông tin giao hàng
+        // Lưu thông tin giao hàng vào bảng Shipping
         $shipping = new Shipping();
         $shipping->shipping_name = $data['shipping_name'];
         $shipping->shipping_city = $data['shipping_city'];
@@ -145,13 +147,13 @@ class CheckoutController extends Controller
         $shipping->shipping_email = $data['shipping_email'];
         $shipping->shipping_note = $data['shipping_note'];
         $shipping->shipping_method = $data['shipping_method'];
-        $shipping->save();
+        $shipping->save(); // Câu lệnh này dùng để lưu thông tin giao hàng vào bảng Shipping
 
 
-        // tự tạo mã code random 5 chữ số
+        // Tạo ra một mã code ngẫu nhiên gồm 5 chữ số để xác nhận đơn hàng
         $checkout_code = substr(md5(microtime()), rand(0, 26), 5);
-        //save order
-        $shipping_id = $shipping->shipping_id; //sau khi save thì lấy id mới nhất 
+        // Lưu vào bảng Order 
+        $shipping_id = $shipping->shipping_id; 
         $order = new Order;
         $order->customer_id = Session::get('customer_id');
         $order->shipping_id = $shipping_id;
@@ -163,6 +165,7 @@ class CheckoutController extends Controller
         $order->order_date = $order_date;
         $order->save();
 
+        // Lưu thông tin chi tiết đơn hàng vào bảng OrderDetails
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {
                 $order_details = new OrderDetails;
@@ -178,13 +181,14 @@ class CheckoutController extends Controller
         }
 
 
-        //send email
+        // Gửi email xác nhận đơn hàng đến khách hàng
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $title_mail = 'Đơn xác nhận mua hàng tại Fresh Fruit' . ' ' . $now;
         $customer = Customer::find(Session::get('customer_id'));
-
         $data['email'][] = $customer->customer_email;
-        //lấy giỏ hàng
+
+
+        // Lấy giỏ hàng từ session
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart_mail) {
                 $cart_array[] = array(
@@ -194,13 +198,17 @@ class CheckoutController extends Controller
                 );
             }
         }
-        //lấy phí ship
+
+
+        // Lấy phí ship từ session, nếu không có thì gán giá trị mặc định
         if (Session::get('fee') == true) {
             $fee = Session::get('fee');
         } else {
             $fee = '25000';
         }
-        //lấy shipping
+
+
+        // Tạo mảng để gửi thông tin giỏ hàng qua email
         $Shipping_array = array(
             'customer_name' => $customer->customer_name,
             'fee' => $fee,
@@ -212,6 +220,8 @@ class CheckoutController extends Controller
             'shipping_note' => $data['shipping_note'],
             'shipping_method' => $data['shipping_method']
         );
+
+        // Tạo mảng để gửi thông tin đơn hàng qua email
         $ordercode_mail =  array(
             'coupon_code' => $coupon_mail,
             'coupon_number' => $coupon_number,
@@ -219,6 +229,7 @@ class CheckoutController extends Controller
 
         );
 
+        // Gửi email xác nhận đơn hàng 
         Mail::send(
             'pages.email.send_mail',
             ['cart_array' => $cart_array, 'Shipping_array' => $Shipping_array, 'ordercode_mail' => $ordercode_mail],
@@ -228,15 +239,15 @@ class CheckoutController extends Controller
             }
         );
 
-        // Debug: show cart before clearing
-        dump('Cart before clearing:', Session::get('cart'));
+        // // Debug: show cart before clearing
+        // dump('Cart before clearing:', Session::get('cart'));
 
-        Session::forget('coupon');
-        Session::forget('fee');
-        Session::forget('cart');
+        Session::forget('coupon'); // Xóa mã giảm giá khỏi session
+        Session::forget('fee'); // Xóa phí vận chuyển khỏi session
+        Session::forget('cart'); // Xóa giỏ hàng khỏi session ? Câu lệnh hiện không chạy!
 
-        // Redirect to confirmation page with cart as session flash data (or pass as view data)
-        return redirect()->route('order.confirmation')->with('cart', $cart);
+        // Điều hướng đến trang xác nhận đơn hàng sau khi lưu đơn hàng thành công
+        return redirect()->route('order.confirmation')->with('cart', $cart); 
     }
 
     // public function save_order(Request $request)

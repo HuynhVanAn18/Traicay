@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Session;
+    use Gloudemans\Shoppingcart\Facades\Cart;
+@endphp
 @extends('layout')
 @section('content')
  <!-- Shoping Cart Section Begin -->
