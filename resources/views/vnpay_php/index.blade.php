@@ -127,31 +127,38 @@
         </div>  
         <link href="https://sandbox.vnpayment.vn/paymentv2/lib/vnpay/vnpay.css" rel="stylesheet"/>
         <script src="https://sandbox.vnpayment.vn/paymentv2/lib/vnpay/vnpay.js"></script>
-        <script type="text/javascript">
-            $("#btnPopup").click(function () {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- <script type="text/javascript">
+            $("#btnPopup").click(function (e) {
+                alert("Vui lòng đợi trong giây lát, hệ thống đang xử lý yêu cầu của bạn.");
+                e.preventDefault();
+                // Gather form data
+                var orderType = $("#order_type").val();
+                var orderId = $("#order_id").val();
+                var amount = $("#amount").val();
+                var orderDesc = $("#order_desc").val();
+                var bankCode = $("#bank_code").val();
+
+                // Print data to console for checking
+                console.log("Order Type:", orderType);
+                console.log("Order ID:", orderId);
+                console.log("Amount:", amount);
+                console.log("Order Description:", orderDesc);
+                console.log("Bank Code:", bankCode);
+
+                // Example: Simple validation
+                if (!orderId || !amount) {
+                    alert("Mã đơn hàng và số tiền không được để trống!");
+                    return false;
+                }
+
+                // If all checks pass, continue with AJAX
                 var postData = $("#create_form").serialize();
                 var submitUrl = $("#create_form").attr("action");
-                $.ajax({
-                    type: "POST",
-                    url: submitUrl,
-                    data: postData,
-                    dataType: 'JSON',
-                    success: function (x) {
-                        if (x.code === '00') {
-                            if (window.vnpay) {
-                                vnpay.open({width: 768, height: 600, url: x.data});
-                            } else {
-                                location.href = x.data;
-                            }
-                            return false;
-                        } else {
-                            alert(x.Message);
-                        }
-                    }
-                });
+                alert("Thông tin đơn hàng đã được xác nhận. Đang chuyển hướng đến cổng thanh toán...");
                 return false;
             });
-        </script>
+        </script> -->
 
 
     </body>
