@@ -218,4 +218,6 @@ Route::get('/active-ads/{ads_id}','App\Http\Controllers\SliderController@active_
 // Những tuyến bổ sung 21/06/2025 
 Route::post('/set-shipping-session', 'App\Http\Controllers\CheckoutController@setShippingSession');
 Route::post('/set-fee', 'App\Http\Controllers\CheckoutController@setFee');
-
+Route::get('/order/confirmation/{order_code}', function($order_code) {
+    return view('order.confirmation', ['order_code' => $order_code]);
+})->name('order.confirmation');

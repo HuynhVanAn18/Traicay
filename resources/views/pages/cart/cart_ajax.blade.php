@@ -1,6 +1,11 @@
-
 @extends('layout')
 @section('content')
+@if(session('order_success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('order_success') }}
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+    </div>
+@endif
  <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
