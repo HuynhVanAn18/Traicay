@@ -4,9 +4,20 @@
 2. Thay đổi cách tính phí giao hàng và không bị mất dữ liệu khi tính phí - ĐÃ HOÀN THÀNH
 3. Thêm hình thức thanh toán bằng VNPay - ĐÃ HOÀN THÀNH
     + Mỗi khi thanh toán sử dụng tài khoản NCB trong email (note)
+4. Sửa cách thức cập nhật trạng thái đơn hàng - ĐÃ HOÀN THÀNH 
+5. Cập nhật lại nội dung tin tức khi người dùng cập nhật tin tức - ĐÃ HOÀN THÀNH 
+6. Màu sắc thông báo khi cập nhật số lượng sản phẩm trong giỏ hàng không phù hợp - ĐÃ HOÀN THÀNH
+
 
 * CHƯA HOÀN THÀNH
-4. Sửa cách thức cập nhật trạng thái đơn hàng - ĐANG XEM 
+** Có lỗi nào khác hay không? 
+NOTE LỖI Ở ĐÂY 
+.... 
+
+
+7. Tích hợp AI tư vấn sử dụng OpenAI hoặc Gemini API ( 1 ngày )
+
+
 
 
 

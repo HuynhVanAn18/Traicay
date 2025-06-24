@@ -18,18 +18,18 @@
                            <?php
                            $message = Session::get('message');
                            if ($message) {
-                             echo '<span class="badge badge-pill badge-danger" >'.$message.'</span>';
+                             echo '<span style="display: flex; justify-content: center; align-items: center; background-color: white; border: 1px solid rgba(0,0,0,.5); color: black; padding: 15px 0 0 0" >'.$message.'</span>';
                              Session::put('message',null);
                              }
                              ?>
                         </span>
                         <br>
                          @if(session()->has('message'))
-		                    <div class="alert alert-success">
+		                    <div class="alert alert-success" >
 		                        {!! session()->get('message') !!}
 		                    </div>
 		                @elseif(session()->has('error'))
-		                     <div class="alert alert-danger">
+		                     <div class="alert alert-danger" >
 		                        {!! session()->get('error') !!}
 		                    </div>
 		                @endif

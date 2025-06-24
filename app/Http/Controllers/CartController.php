@@ -90,10 +90,10 @@ class CartController extends Controller
                     $i++;
                     if ($val['session_id']==$key && $qty < $cart[$session]['product_quantity']) {
                         $cart[$session]['product_qty'] = $qty;
-                        $message.='<p style="color:green;">'.$i.'/ Cập Nhập Số Lượng '.$cart[$session]['product_name'].' Thành Công</p>';
+                        $message.='<p">'.$i.'/ Cập Nhập Số Lượng '.$cart[$session]['product_name'].' Thành Công</p>';
                     }
                     elseif ($val['session_id']==$key && $qty > $cart[$session]['product_quantity']) {
-                        $message.='<p style="color:red;">'.$i.'/ Số Lượng '.$cart[$session]['product_name'].' Phải Nhỏ Hơn '.$cart[$session]['product_quantity'].'</p>';
+                        $message.='<p style="color:white; background-color: red;">'.$i.'/ Số Lượng '.$cart[$session]['product_name'].' Phải Nhỏ Hơn '.$cart[$session]['product_quantity'].'</p>';
                     }
                 }
             }
