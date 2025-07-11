@@ -164,12 +164,12 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item ">
+          <!-- <li class="nav-item ">
             <a class="nav-link" href="{{URl::to('/add-ship')}}">
               <i class="material-icons">local_shipping</i>
               <p> {{__('Phí Vận Chuyển')}} </p>
             </a>
-          </li>
+          </li> --> 
           <li class="nav-item ">
             <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
               <i class="material-icons">description</i>

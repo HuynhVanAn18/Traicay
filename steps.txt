@@ -7,15 +7,20 @@
 4. Sửa cách thức cập nhật trạng thái đơn hàng - ĐÃ HOÀN THÀNH 
 5. Cập nhật lại nội dung tin tức khi người dùng cập nhật tin tức - ĐÃ HOÀN THÀNH 
 6. Màu sắc thông báo khi cập nhật số lượng sản phẩm trong giỏ hàng không phù hợp - ĐÃ HOÀN THÀNH
+7. Tích hợp AI tư vấn sử dụng OpenAI hoặc Gemini API ( 1 ngày ) - KHÔNG THỰC HIỆN 
+8. Thay đổi trang dashboard - ĐÃ HOÀN THÀNH
+9. Sửa footer - ĐÃ HOÀN THÀNH 
+10. Xóa phân tính phí ship vì đã tính phí ship theo khoảng cách từ cửa hàng đến địa điểm giao hàng - ĐÃ HOÀN THÀNH (Chỉ tắt, có thể mở lại bất kỳ lúc nào.)
+11. Sửa thanh scroll ngang - scroll dọc ở trang chủ - ĐÃ HOÀN THÀNH
 
 
 * CHƯA HOÀN THÀNH
+
 ** Có lỗi nào khác hay không? 
 NOTE LỖI Ở ĐÂY 
 .... 
 
 
-7. Tích hợp AI tư vấn sử dụng OpenAI hoặc Gemini API ( 1 ngày )
 
 
 

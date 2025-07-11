@@ -112,11 +112,11 @@
                         <h3>{{__('Thống Kê Tổng Sản Phẩm, Bài Viết, Sản Phẩm')}}</h3>
                         <div class="row">
                           <div class="col-md-4">
-                               <h3>Donut Chart</h3>
+                               <!-- <h3>Donut Chart</h3> -->
                                <center><div id="donut" style="height: 300px;width: 250px;"></div></center>
                           </div>
                           <div class="col-md-4">
-                              <h3>{{__('List Bài Viết Views Cao Nhất')}}</h3>
+                              <h3>{{__('Bài Viết Có Lượt Xem Cao Nhất')}}</h3>
                               <ol style="color: red">
                                 @foreach($post_view as $key =>$p)
                                 <li>
@@ -126,7 +126,7 @@
                               </ol>
                           </div>
                           <div class="col-md-4">
-                              <h3>{{__('List Sản Phẩm Views Cao Nhất')}}</h3>
+                              <h3>{{__('Sản Phẩm Có Lượt Xem Cao Nhất')}}</h3>
                               <ol style="color: red">
                                 @foreach($product_view as $key =>$pro)
                                 <li>

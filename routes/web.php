@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| Đây là nơi bạn có thể đăng ký các tuyến web cho ứng dụng của mình. Các tuyến này
+| được tải bởi RouteServiceProvider trong một nhóm
+| chứa nhóm phần mềm trung gian "web". Bây giờ hãy tạo ra thứ gì đó tuyệt vời!
 |
 */
 Route::get('/','App\Http\Controllers\HomeController@index');

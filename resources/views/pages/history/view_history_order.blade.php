@@ -49,7 +49,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>0564811836</h5>
+                                <h5>0379145253</h5>
                                 <span>{{__('hỗ trợ')}} 24/7</span>
                             </div>
                         </div>

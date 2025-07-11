@@ -353,7 +353,7 @@
 
                  data.reverse();// đảo ngược sản phẩm mới lên đầu
 
-                 document.getElementById('row_wishlist').style.overflow = 'scroll';
+                 document.getElementById('row_wishlist').style.overflow = 'auto';
                  document.getElementById('row_wishlist').style.height = '200px';
                 
                  for(i=0;i<data.length;i++){

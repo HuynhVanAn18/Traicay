@@ -155,7 +155,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>{{ __('Sẩn Phẩm Nổi Bậc') }}</h2>
+                        <h2>{{ __('Sản Phẩm Nổi Bậc') }}</h2>
                     </div>
                 </div>
             </div>
