@@ -15,6 +15,13 @@
 
 
 * CHƯA HOÀN THÀNH
+12. Đổi admin thành user
+    + Bảng login_roles_has_tbl_admin dư (nó lặp lại bảng login_roles) => XÓA BỎ
+13. Xóa đánh giá sản phẩm 
+14. Thêm ô tìm kiếm cho các danh mục
+15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho 
+16. Thay đổi tên bảng SHIPPING 
+17. Phân quyền cho user 
 
 ** Có lỗi nào khác hay không? 
 NOTE LỖI Ở ĐÂY 

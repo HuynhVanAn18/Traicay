@@ -85,6 +85,11 @@ Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard')
 Route::post('/filter-by-date','App\Http\Controllers\AdminController@filter_by_date');
 Route::post('/dashboard-filter','App\Http\Controllers\AdminController@dashboard_filter');
 Route::post('/days-order','App\Http\Controllers\AdminController@days_order');
+
+
+
+
+
 //information
 Route::get('/layout-footer','App\Http\Controllers\Information@layout_footer');
 Route::get('/all-footer','App\Http\Controllers\Information@all_footer');
@@ -182,6 +187,8 @@ Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@dele
 
 //print
 Route::get('/print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order');
+
+
 //Authentication roles
 Route::get('/register-auth','App\Http\Controllers\AuthController@register_auth');
 // Route::get('/login-auth','App\Http\Controllers\AuthController@login_auth');
@@ -193,6 +200,8 @@ Route::post('/login','App\Http\Controllers\AuthController@login')->name('login_a
 Route::get('/all-user','App\Http\Controllers\UserController@all_user');
 Route::get('/delete-user-roles/{admin_id}','App\Http\Controllers\UserController@delete_user_roles');
 Route::post('/assign-roles','App\Http\Controllers\UserController@assign_roles');
+
+
 
 //slider
 Route::get('/add-slider','App\Http\Controllers\SliderController@add_slider');
