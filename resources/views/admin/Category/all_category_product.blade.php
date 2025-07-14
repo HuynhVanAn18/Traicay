@@ -8,6 +8,28 @@
       </div>
       <h4 class="card-title "> {{__('Liệt Kê Danh Mục Sản Phẩm')}}</h4>
     </div>
+    <!-- Filter Form Start -->
+    <div class="card mb-3" style="background: #f8f9fa; border: 1px solid #e3e6f0; box-shadow: none;">
+      <div class="card-body p-3">
+        <form method="GET" action="/all-category-product-filter" class="form-row align-items-center">
+          <div class="col-auto mb-2 mb-sm-0">
+            <input type="text" name="category_name" class="form-control" placeholder="Tên Danh Mục (VI)" value="{{ request('category_name') }}">
+          </div>
+          <div class="col-auto mb-2 mb-sm-0">
+            <input type="text" name="category_name_en" class="form-control" placeholder="Tên Danh Mục (EN)" value="{{ request('category_name_en') }}">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-filter"></i> Lọc
+            </button>
+            <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+              <i class="fa fa-times"></i> Xóa lọc
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Filter Form End -->
     <span class="" style="margin-left: 800px;">
      <?php
      $message = Session::get('message');

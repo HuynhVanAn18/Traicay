@@ -285,7 +285,8 @@
 
     {{-- script share fb --}}
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0" nonce="he8bFVjf"></script>
+    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0" nonce="he8bFVjf"></script> -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0&appId=24259451873685718"></script>
     {{-- end script --}}
     {{-- add số lượng --}}
     <script>//<![CDATA[

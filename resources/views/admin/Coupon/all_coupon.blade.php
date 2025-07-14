@@ -8,6 +8,32 @@
       </div>
       <h4 class="card-title ">{{__('Liệt Kê Mã Giảm Giá')}}</h4>
     </div>
+    <!-- Filter Form Start -->
+    <div class="card mb-3" style="background: #f8f9fa; border: 1px solid #e3e6f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <div class="card-body p-3">
+        <form method="GET" action="" class="form-row align-items-center">
+          <div class="col-auto mb-2 mb-sm-0">
+            <input type="text" name="coupon_name" class="form-control" placeholder="Tên Mã Giảm Giá" value="{{ request('coupon_name') }}">
+          </div>
+          <div class="col-auto mb-2 mb-sm-0">
+            <select name="coupon_status" class="form-control">
+              <option value="">Trạng Thái</option>
+              <option value="1" {{ request('coupon_status') === '1' ? 'selected' : '' }}>Kích hoạt</option>
+              <option value="0" {{ request('coupon_status') === '0' ? 'selected' : '' }}>Ẩn</option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-filter"></i> Lọc
+            </button>
+            <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+              <i class="fa fa-times"></i> Xóa lọc
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Filter Form End -->
     <span class="" style="margin-left: 800px;">
      <?php
      $message = Session::get('message');
@@ -151,7 +177,7 @@
                 }
                 ?>
              </td>
-             <td><div style="right: 10px;"><a href="{{URL::to('send-coupon',['coupon_qty'=>$coupon->coupon_qty,'coupon_name'=>$coupon->coupon_name,'coupon_condition'=>$coupon->coupon_condition,'coupon_number'=>$coupon->coupon_number,'coupon_code'=>$coupon->coupon_code])}}"  class="btn btn-warning">{{__('Gửi mã giảm giá cho khách hàng')}}</a></div></td>
+             <!-- <td><div style="right: 10px;"><a href="{{URL::to('send-coupon',['coupon_qty'=>$coupon->coupon_qty,'coupon_name'=>$coupon->coupon_name,'coupon_condition'=>$coupon->coupon_condition,'coupon_number'=>$coupon->coupon_number,'coupon_code'=>$coupon->coupon_code])}}"  class="btn btn-warning">{{__('Gửi mã giảm giá cho khách hàng')}}</a></div></td> -->
              <td class="td-actions">
               <button type="button" rel="tooltip" class="btn btn-success btn-round">
                 <a class="material-icons" href="{{URL::to('/edit-coupon/'.$coupon->coupon_id)}}" data-original-title="Update">edit</a>

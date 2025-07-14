@@ -129,5 +129,18 @@ class CategoryProduct extends Controller
         return view('pages.category.show_category')->with('category',$cate_product)->with('brand',$brand_product)->with('category_by_id',$category_by_id)->with('category_name',$category_name)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     
+    public function all_category_product_filtered(Request $request) {
+    $query = Category::query();
+
+    if ($request->filled('category_name')) {
+        $query->where('category_name', 'like', '%' . $request->category_name . '%');
+    }
+    if ($request->filled('category_name_en')) {
+        $query->where('category_name_en', 'like', '%' . $request->category_name_en . '%');
+    }
+
+    $all_category_product = $query->orderBy('category_id', 'DESC')->paginate(5);
+    return view('admin.Category.all_category_product', compact('all_category_product'));
+}
 
 }

@@ -12,15 +12,24 @@
 9. Sửa footer - ĐÃ HOÀN THÀNH 
 10. Xóa phân tính phí ship vì đã tính phí ship theo khoảng cách từ cửa hàng đến địa điểm giao hàng - ĐÃ HOÀN THÀNH (Chỉ tắt, có thể mở lại bất kỳ lúc nào.)
 11. Sửa thanh scroll ngang - scroll dọc ở trang chủ - ĐÃ HOÀN THÀNH
+13. Xóa đánh giá sản phẩm - ĐÃ HOÀN THÀNH (thay đổi slug sản phẩm, xử lý ẩn bình luận cũ)
+12. Đổi admin thành user - THỐNG NHẤT BỎ QUA
+    + Bảng login_roles_has_tbl_admin dư (nó lặp lại bảng login_roles) => XÓA BỎ
+    + Hiện tại bảng Admin và bảng User đã nối vào toàn bộ các bảng khác, bên cạnh còn có các thao tác xác thực, gộp bảng có thể lỗi rất nhiều 
+    => Giair pháp: vẫn giữ nguyên code như vậy, nhưng cơ sở dữ liệu mình vẽ lại 
+14. Thêm ô tìm kiếm cho các danh mục - ĐÃ HOÀN THÀNH 
+    + Lọc sản phẩm theo danh mục 
+    + Lọc sản phẩm dựa theo tên thương hiệu 
+    + Lọc sản phẩm theo tên (anh - việt), khoảng giá, số lượng tăng dần, giẩm dần, sắp xếp theo danh mục, thương hiệu, trạng thái (ẩn hay hiện) 
+    + Lọc mã giảm giá theo tên và trạng thái (kích hoạt, hoặc không)
+    + Lọc bài viết theo tên bài viết và trạng thái
+16. Thay đổi tên bảng SHIPPING - ĐÃ HOÀN THÀNH (chỉ cần thay đổi tên bảng cơ sở dữ liệu)
+
+
 
 
 * CHƯA HOÀN THÀNH
-12. Đổi admin thành user
-    + Bảng login_roles_has_tbl_admin dư (nó lặp lại bảng login_roles) => XÓA BỎ
-13. Xóa đánh giá sản phẩm 
-14. Thêm ô tìm kiếm cho các danh mục
-15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho 
-16. Thay đổi tên bảng SHIPPING 
+15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho
 17. Phân quyền cho user 
 
 ** Có lỗi nào khác hay không? 

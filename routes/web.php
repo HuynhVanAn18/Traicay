@@ -101,6 +101,7 @@ Route::post('/update-footer/{info_id}','App\Http\Controllers\Information@update_
 //Category Product
 Route::get('/add-category-product','App\Http\Controllers\CategoryProduct@add_category_product');
 Route::get('/all-category-product','App\Http\Controllers\CategoryProduct@all_category_product');
+Route::get('/all-category-product-filter','App\Http\Controllers\CategoryProduct@all_category_product_filtered');
 Route::get('/edit-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@edit_category_product');
 Route::get('/delete-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@delete_category_product');
 Route::get('/unactive-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@unactive_category_product');
@@ -134,6 +135,7 @@ Route::post('/save-post','App\Http\Controllers\Post@save_post');
 
 Route::get('/add-brand-product','App\Http\Controllers\BrandProduct@add_brand_product');
 Route::get('/all-brand-product','App\Http\Controllers\BrandProduct@all_brand_product');
+Route::get('/all-brand-product-filtered','App\Http\Controllers\BrandProduct@all_brand_product_filtered');
 Route::get('/edit-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@edit_brand_product');
 Route::get('/delete-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@delete_brand_product');
 Route::get('/unactive-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@unactive_brand_product');
