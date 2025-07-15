@@ -24,13 +24,17 @@
     + Lọc mã giảm giá theo tên và trạng thái (kích hoạt, hoặc không)
     + Lọc bài viết theo tên bài viết và trạng thái
 16. Thay đổi tên bảng SHIPPING - ĐÃ HOÀN THÀNH (chỉ cần thay đổi tên bảng cơ sở dữ liệu)
-
-
+18. Những thay đổi cơ sở dữ liệu: - NOTE
+    + Gộp bảng customer và bảng admin lại thành 1 
+    + Tạo lại 2 bảng là: role (vai trò), và user_role(vai trò người dùng - thực thể yếu)
+    + Một người dùng có thể có nhiều vai trò (customer - khách hàng, admin - quản trị viên, staff - nhân viên)
+    + Một vai trò thì có thể thuộc về nhiều người dùng => dùng một bảng phụ (user_role) để thể hiện mối quan hệ nhiều - nhiều
+15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho - ĐÃ HOÀN THÀNH
+18. Thêm bộ lọc cho trang quản lý đơn hàng - ĐÃ HOÀN THÀNH
 
 
 * CHƯA HOÀN THÀNH
-15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho
-17. Phân quyền cho user 
+17. Phân quyền cho user - ĐANG THỰC HIỆN 
 
 ** Có lỗi nào khác hay không? 
 NOTE LỖI Ở ĐÂY 

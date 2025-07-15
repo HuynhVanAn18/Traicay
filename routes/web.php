@@ -232,3 +232,9 @@ Route::post('/set-fee', 'App\Http\Controllers\CheckoutController@setFee');
 Route::get('/order/confirmation/{order_code}', function($order_code) {
     return view('order.confirmation', ['order_code' => $order_code]);
 })->name('order.confirmation');
+
+// Stock Transactions
+Route::get('/all-stock-transactions', 'App\Http\Controllers\StockTransactionsController@all_stock_transactions')->name('all-stock-transactions');
+Route::get('/add-stock-transaction', 'App\Http\Controllers\StockTransactionsController@add_stock_transaction')->name('add-stock-transaction');
+Route::post('/save-stock-transaction', 'App\Http\Controllers\StockTransactionsController@save_stock_transaction')->name('save-stock-transaction');
+

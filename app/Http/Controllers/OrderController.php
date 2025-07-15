@@ -13,7 +13,6 @@ use App\Models\Products;
 use App\Models\Statistic;
 use App\Models\Coupon;
 use PDF;
-use Session;
 use Carbon\Carbon;
 use Auth;
 class OrderController extends Controller
@@ -68,6 +67,14 @@ class OrderController extends Controller
               $product->product_qty = $pro_remain;
               $product->product_sold = $product_sold+$qty;
               $product->save();
+              // Create stock transaction for export
+              \App\Models\StockTransactions::create([
+                'product_id' => $product_id,
+                'admin_id' => Auth::id(),
+                'quantity' => $qty,
+                'type' => 'export',
+                'note' => 'Xuất kho theo đơn hàng',
+              ]);
               //update doanh thu (dùng cho statistic )
                   $total_order+=1;
                   $sales+=$product_price*$qty;
@@ -342,11 +349,28 @@ class OrderController extends Controller
       return $output;
     }
 
-    public function manage_order(){
-        $order = Order::orderby('created_at','DESC')->paginate(5);
+    // public function manage_order(){
+    //     $order = Order::orderby('created_at','DESC')->paginate(5);
        
-        return view('admin.Order.manage_order')->with(compact('order'));
+    //     return view('admin.Order.manage_order')->with(compact('order'));
+    // }
+    public function manage_order(Request $request) {
+    $query = Order::orderby('created_at','DESC');
+
+    // Filter by order code
+    if ($request->filled('order_code')) {
+        $query->where('order_code', 'like', '%' . $request->order_code . '%');
     }
+
+    // Filter by order status
+    if ($request->filled('order_status')) {
+        $query->where('order_status', $request->order_status);
+    }
+
+    $order = $query->paginate(5)->appends($request->except('page'));
+
+    return view('admin.Order.manage_order')->with(compact('order'));
+}
 
     public function view_order($order_code){
          

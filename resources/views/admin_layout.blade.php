@@ -62,6 +62,7 @@
           </div>
         </div>
         <ul class="nav">
+         
           <li class="nav-item active ">
             <a class="nav-link" href="{{URL::to('/dashboard')}}">
               <i class="material-icons">dashboard</i>
@@ -87,6 +88,30 @@
                   <a class="nav-link" href="{{URL::to('/all-category-product')}}">
                     <span class="sidebar-mini"> DM </span>
                     <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#stock">
+              <i class="material-icons">inventory_2</i>
+              <p> {{__('Quản Lý Kho')}}
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="stock">
+              <ul class="nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="{{URL::to('/all-stock-transactions')}}">
+                    <span class="sidebar-mini"> KHO </span>
+                    <span class="sidebar-normal"> {{__('Liệt Kê Giao Dịch Kho')}} </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="{{URL::to('/add-stock-transaction')}}">
+                    <span class="sidebar-mini"> KHO </span>
+                    <span class="sidebar-normal"> {{__('Nhập Kho')}} </span>
                   </a>
                 </li>
               </ul>
