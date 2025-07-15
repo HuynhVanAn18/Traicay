@@ -17,4 +17,8 @@ class Roles extends Model
  	public function admin(){
  		return $this->belongsToMany('App\Models\Login');
  	}
+	public function users()
+{
+    return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
+}
 }

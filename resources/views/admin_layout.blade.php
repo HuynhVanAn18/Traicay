@@ -62,277 +62,348 @@
           </div>
         </div>
         <ul class="nav">
-         
-          <li class="nav-item active ">
-            <a class="nav-link" href="{{URL::to('/dashboard')}}">
-              <i class="material-icons">dashboard</i>
-              <p> Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#category">
-              <i class="material-icons">category</i>
-              <p>{{__('Danh Mục Sản Phẩm')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="category">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/add-category-product')}}">
-                    <span class="sidebar-mini"> DM </span>
-                    <span class="sidebar-normal"> {{__('Thêm Danh Mục')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-category-product')}}">
-                    <span class="sidebar-mini"> DM </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#stock">
-              <i class="material-icons">inventory_2</i>
-              <p> {{__('Quản Lý Kho')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="stock">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-stock-transactions')}}">
-                    <span class="sidebar-mini"> KHO </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Giao Dịch Kho')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/add-stock-transaction')}}">
-                    <span class="sidebar-mini"> KHO </span>
-                    <span class="sidebar-normal"> {{__('Nhập Kho')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#brand">
-              <i class="material-icons">branding_watermark</i>
-              <p> {{__('Thương Hiệu Sản Phẩm')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="brand">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/add-brand-product')}}">
-                    <span class="sidebar-mini"> TH </span>
-                    <span class="sidebar-normal"> {{__('Thêm Thương Hiệu')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-brand-product')}}">
-                    <span class="sidebar-mini"> TH </span>
-                    <span class="sidebar-normal">{{__('Liệt Kê Thương Hiệu')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#product">
-              <i class="material-icons">production_quantity_limits</i>
-              <p> {{__('Sản Phẩm')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="product">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/add-product')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal">{{__('Thêm Sản Phẩm')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-product')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Sản Phẩm')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#coupon">
-              <i class="material-icons">local_offer</i>
-              <p> {{__('Mã Giảm Giá')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="coupon">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/add-coupon')}}">
-                    <span class="sidebar-mini"> MGG </span>
-                    <span class="sidebar-normal"> {{__('Thêm Mã')}}</span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/all-coupon')}}">
-                    <span class="sidebar-mini"> MGG </span>
-                    <span class="sidebar-normal"> {{__('Quản Lý Mã')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <!-- <li class="nav-item ">
-            <a class="nav-link" href="{{URl::to('/add-ship')}}">
-              <i class="material-icons">local_shipping</i>
-              <p> {{__('Phí Vận Chuyển')}} </p>
-            </a>
-          </li> --> 
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
-              <i class="material-icons">description</i>
-              <p> {{__('Quản Lý Đơn Hàng')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="tablesExamples">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/manage-order')}}">
-                    <span class="sidebar-mini"> ĐH </span>
-                    <span class="sidebar-normal"> {{__('Đơn Hàng')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#BlogExamples">
-              <i class="material-icons">reorder</i>
-              <p> {{__('Danh Mục Bài Viết')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="BlogExamples">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/add-category-blog')}}">
-                    <span class="sidebar-mini"> DM </span>
-                    <span class="sidebar-normal"> {{__('Thêm Danh Mục')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-category-blog')}}">
-                    <span class="sidebar-mini"> DM </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#PostExamples">
-              <i class="material-icons">article</i>
-              <p> {{__('Bài Viết')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="PostExamples">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URl::to('/add-post')}}">
-                    <span class="sidebar-mini"> BV </span>
-                    <span class="sidebar-normal"> {{__('Thêm Bài Viết')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-post')}}">
-                    <span class="sidebar-mini"> BV </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Bài Viết')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#Slider">
-              <i class="material-icons">payment</i>
-              <p> {{__('Slider')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="Slider">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/add-slider')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal"> {{__('Thêm Slider')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-slider')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal">{{__('Liệt Kê Slider')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#Footer">
-              <i class="material-icons">build</i>
-              <p> {{__('Footer')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="Footer">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/layout-footer')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal"> {{__('Thêm Footer')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-footer')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal">{{__('Liệt Kê Footer')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ads">
-              <i class="material-icons">ads_click</i>
-              <p> {{__('Quảng Cáo')}}
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="ads">
-              <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/add-ads')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal"> {{__('Thêm Quảng Cáo')}} </span>
-                  </a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="{{URL::to('/all-ads')}}">
-                    <span class="sidebar-mini"> SP </span>
-                    <span class="sidebar-normal"> {{__('Liệt Kê Quảng Cáo')}} </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
+          @if(Auth::user() && Auth::user()->hasRole('staff'))
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#product">
+          @if(Auth::user() && Auth::user()->hasRole('admin'))
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#staff">
+                <i class="material-icons">people</i>
+                <p> {{__('Quản Lý Nhân Viên')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="staff">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/admin/staff')}}">
+                      <span class="sidebar-mini"> NV </span>
+                      <span class="sidebar-normal"> {{__('Danh Sách Nhân Viên')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/admin/staff/create')}}">
+                      <span class="sidebar-mini"> NV </span>
+                      <span class="sidebar-normal"> {{__('Thêm Nhân Viên')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          @endif
+                <i class="material-icons">production_quantity_limits</i>
+                <p> {{__('Sản Phẩm')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="product">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/add-product')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal">{{__('Thêm Sản Phẩm')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-product')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Sản Phẩm')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
+                <i class="material-icons">description</i>
+                <p> {{__('Quản Lý Đơn Hàng')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="tablesExamples">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/manage-order')}}">
+                      <span class="sidebar-mini"> ĐH </span>
+                      <span class="sidebar-normal"> {{__('Đơn Hàng')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          @else
+            <!-- All original sidebar items for admin and other roles -->
+            <li class="nav-item active ">
+              <a class="nav-link" href="{{URL::to('/dashboard')}}">
+                <i class="material-icons">dashboard</i>
+                <p> Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#category">
+                <i class="material-icons">category</i>
+                <p>{{__('Danh Mục Sản Phẩm')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="category">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/add-category-product')}}">
+                      <span class="sidebar-mini"> DM </span>
+                      <span class="sidebar-normal"> {{__('Thêm Danh Mục')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-category-product')}}">
+                      <span class="sidebar-mini"> DM </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#stock">
+                <i class="material-icons">inventory_2</i>
+                <p> {{__('Quản Lý Kho')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="stock">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-stock-transactions')}}">
+                      <span class="sidebar-mini"> KHO </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Giao Dịch Kho')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/add-stock-transaction')}}">
+                      <span class="sidebar-mini"> KHO </span>
+                      <span class="sidebar-normal"> {{__('Nhập Kho')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#brand">
+                <i class="material-icons">branding_watermark</i>
+                <p> {{__('Thương Hiệu Sản Phẩm')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="brand">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/add-brand-product')}}">
+                      <span class="sidebar-mini"> TH </span>
+                      <span class="sidebar-normal"> {{__('Thêm Thương Hiệu')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-brand-product')}}">
+                      <span class="sidebar-mini"> TH </span>
+                      <span class="sidebar-normal">{{__('Liệt Kê Thương Hiệu')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#product">
+                <i class="material-icons">production_quantity_limits</i>
+                <p> {{__('Sản Phẩm')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="product">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/add-product')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal">{{__('Thêm Sản Phẩm')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-product')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Sản Phẩm')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#coupon">
+                <i class="material-icons">local_offer</i>
+                <p> {{__('Mã Giảm Giá')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="coupon">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/add-coupon')}}">
+                      <span class="sidebar-mini"> MGG </span>
+                      <span class="sidebar-normal"> {{__('Thêm Mã')}}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/all-coupon')}}">
+                      <span class="sidebar-mini"> MGG </span>
+                      <span class="sidebar-normal"> {{__('Quản Lý Mã')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- <li class="nav-item ">
+              <a class="nav-link" href="{{URl::to('/add-ship')}}">
+                <i class="material-icons">local_shipping</i>
+                <p> {{__('Phí Vận Chuyển')}} </p>
+              </a>
+            </li> --> 
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
+                <i class="material-icons">description</i>
+                <p> {{__('Quản Lý Đơn Hàng')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="tablesExamples">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/manage-order')}}">
+                      <span class="sidebar-mini"> ĐH </span>
+                      <span class="sidebar-normal"> {{__('Đơn Hàng')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#BlogExamples">
+                <i class="material-icons">reorder</i>
+                <p> {{__('Danh Mục Bài Viết')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="BlogExamples">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/add-category-blog')}}">
+                      <span class="sidebar-mini"> DM </span>
+                      <span class="sidebar-normal"> {{__('Thêm Danh Mục')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-category-blog')}}">
+                      <span class="sidebar-mini"> DM </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" data-toggle="collapse" href="#PostExamples">
+                <i class="material-icons">article</i>
+                <p> {{__('Bài Viết')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="PostExamples">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URl::to('/add-post')}}">
+                      <span class="sidebar-mini"> BV </span>
+                      <span class="sidebar-normal"> {{__('Thêm Bài Viết')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-post')}}">
+                      <span class="sidebar-mini"> BV </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Bài Viết')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#Slider">
+                <i class="material-icons">payment</i>
+                <p> {{__('Slider')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="Slider">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/add-slider')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Thêm Slider')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-slider')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal">{{__('Liệt Kê Slider')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#Footer">
+                <i class="material-icons">build</i>
+                <p> {{__('Footer')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="Footer">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/layout-footer')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Thêm Footer')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-footer')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal">{{__('Liệt Kê Footer')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ads">
+                <i class="material-icons">ads_click</i>
+                <p> {{__('Quảng Cáo')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="ads">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/add-ads')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Thêm Quảng Cáo')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/all-ads')}}">
+                      <span class="sidebar-mini"> SP </span>
+                      <span class="sidebar-normal"> {{__('Liệt Kê Quảng Cáo')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          @endif
         </ul>
       </div>
     </div>

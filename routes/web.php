@@ -79,7 +79,7 @@ Route::get('/view-history-order/{order_code}','App\Http\Controllers\CheckoutCont
 
 //Admin Dashboard
 Route::get('/admin','App\Http\Controllers\AuthController@login_auth');
-Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
+Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard')->middleware(['auth', 'admin']);
 Route::get('/logout','App\Http\Controllers\AdminController@logout');
 Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
 Route::post('/filter-by-date','App\Http\Controllers\AdminController@filter_by_date');
@@ -187,7 +187,7 @@ Route::post('/order-update-qty','App\Http\Controllers\OrderController@order_upda
 Route::post('/update-qty','App\Http\Controllers\OrderController@update_qty');
 Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order');
 
-//print
+// print
 Route::get('/print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order');
 
 
@@ -238,3 +238,18 @@ Route::get('/all-stock-transactions', 'App\Http\Controllers\StockTransactionsCon
 Route::get('/add-stock-transaction', 'App\Http\Controllers\StockTransactionsController@add_stock_transaction')->name('add-stock-transaction');
 Route::post('/save-stock-transaction', 'App\Http\Controllers\StockTransactionsController@save_stock_transaction')->name('save-stock-transaction');
 
+// Route::get('/manage-order','App\Http\Controllers\OrderController@manage_order')->middleware(['auth', 'staff']);
+// Route::get('/view-order/{order_code}','App\Http\Controllers\OrderController@view_order')->middleware(['auth', 'staff']);
+// Route::post('/order-update-qty','App\Http\Controllers\OrderController@order_update_qty')->middleware(['auth', 'staff']);
+// Route::post('/update-qty','App\Http\Controllers\OrderController@update_qty')->middleware(['auth', 'staff']);
+// Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order')->middleware(['auth', 'staff']);
+// Route::get('/print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order')->middleware(['auth', 'staff']);
+
+// Route::get('/add-product','App\Http\Controllers\Product@add_product')->middleware(['auth', 'staff']);
+// Route::get('/all-product','App\Http\Controllers\Product@all_product')->middleware(['auth', 'staff']);
+// Route::get('/edit-product/{product_id}','App\Http\Controllers\Product@edit_product')->middleware(['auth', 'staff']);
+// Route::get('/delete-product/{product_id}','App\Http\Controllers\Product@delete_product')->middleware(['auth', 'staff']);
+// Route::get('/unactive-product/{product_id}','App\Http\Controllers\Product@unactive_product')->middleware(['auth', 'staff']);
+// Route::get('/active-product/{product_id}','App\Http\Controllers\Product@active_product')->middleware(['auth', 'staff']);
+// Route::post('/save-product','App\Http\Controllers\Product@save_product')->middleware(['auth', 'staff']);
+// Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product')->middleware(['auth', 'staff']);
