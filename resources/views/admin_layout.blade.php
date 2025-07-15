@@ -62,35 +62,10 @@
           </div>
         </div>
         <ul class="nav">
-          @if(Auth::user() && Auth::user()->hasRole('staff'))
+          @if(Auth::user() && Auth::user()->hasRole('staff') && !Auth::user()->hasRole('admin'))
+            <!-- Sidebar for staff: only products and orders -->
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#product">
-          @if(Auth::user() && Auth::user()->hasRole('admin'))
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#staff">
-                <i class="material-icons">people</i>
-                <p> {{__('Quản Lý Nhân Viên')}}
-                  <b class="caret"></b>
-                </p>
-              </a>
-              <div class="collapse" id="staff">
-                <ul class="nav">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="{{URL::to('/admin/staff')}}">
-                      <span class="sidebar-mini"> NV </span>
-                      <span class="sidebar-normal"> {{__('Danh Sách Nhân Viên')}} </span>
-                    </a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="{{URL::to('/admin/staff/create')}}">
-                      <span class="sidebar-mini"> NV </span>
-                      <span class="sidebar-normal"> {{__('Thêm Nhân Viên')}} </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          @endif
                 <i class="material-icons">production_quantity_limits</i>
                 <p> {{__('Sản Phẩm')}}
                   <b class="caret"></b>
@@ -131,7 +106,10 @@
                 </ul>
               </div>
             </li>
-          @else
+          @endif
+
+          @if(Auth::user() && Auth::user()->hasRole('admin'))
+            
             <!-- All original sidebar items for admin and other roles -->
             <li class="nav-item active ">
               <a class="nav-link" href="{{URL::to('/dashboard')}}">
@@ -158,6 +136,31 @@
                     <a class="nav-link" href="{{URL::to('/all-category-product')}}">
                       <span class="sidebar-mini"> DM </span>
                       <span class="sidebar-normal"> {{__('Liệt Kê Danh Mục')}} </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- Sidebar for admin: all features -->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#staff">
+                <i class="material-icons">people</i>
+                <p> {{__('Quản Lý Nhân Viên')}}
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <div class="collapse" id="staff">
+                <ul class="nav">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/admin/staff')}}">
+                      <span class="sidebar-mini"> NV </span>
+                      <span class="sidebar-normal"> {{__('Danh Sách Nhân Viên')}} </span>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{URL::to('/admin/staff/create')}}">
+                      <span class="sidebar-mini"> NV </span>
+                      <span class="sidebar-normal"> {{__('Thêm Nhân Viên')}} </span>
                     </a>
                   </li>
                 </ul>

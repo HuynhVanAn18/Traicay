@@ -30,11 +30,12 @@
     + Một người dùng có thể có nhiều vai trò (customer - khách hàng, admin - quản trị viên, staff - nhân viên)
     + Một vai trò thì có thể thuộc về nhiều người dùng => dùng một bảng phụ (user_role) để thể hiện mối quan hệ nhiều - nhiều
 15. Thêm trang quản lý kho: quản lý các giao dịch kho như: XUẤT, NHẬP, CẬP NHẬT sản phẩm kho - ĐÃ HOÀN THÀNH
+17. Phân quyền cho user - ĐÃ HOÀN THÀNH 
+    + Thêm quản lý nhân viên để cho phép admin có thể thêm, sửa, xóa nhân viên 
+    + Khi đăng nhập với tài khoản nhân viên, chỉ có thể thao tác với sản phẩm và đơn hàng
 18. Thêm bộ lọc cho trang quản lý đơn hàng - ĐÃ HOÀN THÀNH
 
-
 * CHƯA HOÀN THÀNH
-17. Phân quyền cho user - ĐANG THỰC HIỆN 
 
 ** Có lỗi nào khác hay không? 
 NOTE LỖI Ở ĐÂY 

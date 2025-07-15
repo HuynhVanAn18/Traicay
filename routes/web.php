@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -253,3 +254,13 @@ Route::post('/save-stock-transaction', 'App\Http\Controllers\StockTransactionsCo
 // Route::get('/active-product/{product_id}','App\Http\Controllers\Product@active_product')->middleware(['auth', 'staff']);
 // Route::post('/save-product','App\Http\Controllers\Product@save_product')->middleware(['auth', 'staff']);
 // Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product')->middleware(['auth', 'staff']);
+
+// Staff management (admin only)
+Route::middleware(['auth', 'admin'])->prefix('admin/staff')->name('staff.')->group(function () {
+    Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('create');
+    Route::post('/store', [App\Http\Controllers\StaffController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [App\Http\Controllers\StaffController::class, 'edit'])->name('edit');
+    Route::post('/{id}/update', [App\Http\Controllers\StaffController::class, 'update'])->name('update');
+    Route::delete('/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('destroy');
+});
