@@ -143,24 +143,24 @@
             </li>
             <!-- Sidebar for admin: all features -->
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#staff">
-                <i class="material-icons">people</i>
-                <p> {{__('Quản Lý Nhân Viên')}}
+              <a class="nav-link" data-toggle="collapse" href="#users">
+                <i class="material-icons">account_circle</i>
+                <p> {{__('Quản Lý Người Dùng')}}
                   <b class="caret"></b>
                 </p>
               </a>
-              <div class="collapse" id="staff">
+              <div class="collapse" id="users">
                 <ul class="nav">
                   <li class="nav-item ">
-                    <a class="nav-link" href="{{URL::to('/admin/staff')}}">
-                      <span class="sidebar-mini"> NV </span>
-                      <span class="sidebar-normal"> {{__('Danh Sách Nhân Viên')}} </span>
+                    <a class="nav-link" href="{{URL::to('/all-user')}}">
+                      <span class="sidebar-mini"> USER </span>
+                      <span class="sidebar-normal"> {{__('Danh Sách Người Dùng')}} </span>
                     </a>
                   </li>
                   <li class="nav-item ">
-                    <a class="nav-link" href="{{URL::to('/admin/staff/create')}}">
-                      <span class="sidebar-mini"> NV </span>
-                      <span class="sidebar-normal"> {{__('Thêm Nhân Viên')}} </span>
+                    <a class="nav-link" href="{{URL::to('/add-user')}}">
+                      <span class="sidebar-mini"> USER </span>
+                      <span class="sidebar-normal"> {{__('Thêm Người Dùng')}} </span>
                     </a>
                   </li>
                 </ul>
@@ -453,7 +453,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   @foreach($order_new_dashboard as $key => $n)
-                  <a class="dropdown-item" href="{{URL::to('/view-order/'.$n->order_code)}}">{{__('Đơn Hàng Chưa Xử Lí')}} {{$n->order_code}}</a>
+                  <a class="dropdown-item" href="{{URL::to('/view-order/'.$n->order_code)}}">{{__('Đơn Hàng Chưa Xử Lý')}} {{$n->order_code}}</a>
                   @endforeach
                 </div>
               </li>

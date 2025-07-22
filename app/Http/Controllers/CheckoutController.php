@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Cart;
 use Illuminate\Support\Facades\Mail;
@@ -428,16 +429,17 @@ class CheckoutController extends Controller
     public function add_customer(Request $request)
     {
 
-        $data = array();
-        $data['customer_name'] = $request->customer_name;
-        $data['customer_email'] = $request->customer_email;
-        $data['customer_password'] = md5($request->customer_password);
-        $data['customer_phone'] = $request->customer_phone;
-
-
-        $customer_id = DB::table('tbl_customer')->insertGetId($data);
-        Session::put('customer_id', $customer_id);
-        Session::put('customer_name', $request->customer_name);
+        // Đăng ký user vào bảng tbl_admin (Login model)
+        $user = new \App\Models\Login();
+        $user->admin_name = $request->input('customer_name');
+        $user->admin_email = $request->input('customer_email');
+        $user->admin_password = Hash::make($request->input('customer_password'));
+        $user->admin_phone = $request->input('customer_phone');
+        $user->save();
+        // Gán quyền user mặc định
+        $user->roles()->attach(\App\Models\Roles::where('name','user')->first());
+        Session::put('customer_id', $user->id ?? $user->admin_id);
+        Session::put('customer_name', $user->admin_name);
         return Redirect::to('/checkout');
     }
     public function checkout(Request $request)
@@ -473,30 +475,22 @@ class CheckoutController extends Controller
         $data = $request->all();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $title_mail = 'Lấy lại mật khẩu tại Fresh Fruit' . ' ' . $now;
-        $customer = Customer::where('customer_email', '=', $data['email_account'])->get();
-        foreach ($customer as $key => $value) {
-            $customer_id = $value->customer_id;
+        $user = \App\Models\Login::where('admin_email', '=', $data['email_account'])->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email chưa đăng ký');
         }
-        if ($customer) {
-            $count_customer = $customer->count();
-            if ($count_customer == 0) {
-                return redirect()->back()->with('error', 'Email chưa đăng ký');
-            } else {
-                $token_random = Str::random();
-                $customer = Customer::find($customer_id);
-                $customer->customer_token = $token_random;
-                $customer->save();
-                //send mail
-                $to_email = $data['email_account'];
-                $link_reset_pass = url('/update-password?email=' . $to_email . '&token=' . $token_random);
-                $data = array("name" => $title_mail, "body" => $link_reset_pass, 'email' => $data['email_account']);
-                Mail::send('pages.email.reset_email', ['data' => $data], function ($message) use ($title_mail, $data) {
-                    $message->to($data['email'])->subject($title_mail);
-                    $message->from($data['email'], $title_mail);
-                });
-                return redirect()->back()->with('message', ' Vui lòng check email để reset password của bạn');
-            }
-        }
+        $token_random = Str::random();
+        $user->admin_token = $token_random;
+        $user->save();
+        //send mail
+        $to_email = $data['email_account'];
+        $link_reset_pass = url('/update-password?email=' . $to_email . '&token=' . $token_random);
+        $mail_data = array("name" => $title_mail, "body" => $link_reset_pass, 'email' => $data['email_account']);
+        Mail::send('pages.email.reset_email', ['data' => $mail_data], function ($message) use ($title_mail, $mail_data) {
+            $message->to($mail_data['email'])->subject($title_mail);
+            $message->from($mail_data['email'], $title_mail);
+        });
+        return redirect()->back()->with('message', ' Vui lòng check email để reset password của bạn');
     }
     public function update_password(Request $request)
     {
@@ -506,16 +500,12 @@ class CheckoutController extends Controller
     {
         $data = $request->all();
         $token_random = Str::random();
-        $customer = Customer::where('customer_email', '=', $data['email'])->where('customer_token', '=', $data['token'])->get();
-        $count = $customer->count();
-        if ($count > 0) {
-            foreach ($customer as $key => $cus) {
-                $customer_id = $cus->customer_id;
-            }
-            $reset = Customer::find($customer_id);
-            $reset->customer_password = md5($data['password_account']);
-            $reset->customer_token = $token_random;
-            $reset->save();
+        $user = \App\Models\Login::where('admin_email', '=', $data['email'])
+            ->where('admin_token', '=', $data['token'])->first();
+        if ($user) {
+            $user->admin_password = Hash::make($data['password_account']);
+            $user->admin_token = $token_random;
+            $user->save();
             return redirect('login-checkout')->with('message', 'Mật khẩu đã được cập nhật');
         } else {
             return redirect('reset-password')->with('error', 'Link của bạn đã hết hạn, vui lòng nhập lại email');
@@ -523,12 +513,16 @@ class CheckoutController extends Controller
     }
     public function login_customer(Request $request)
     {
-        $name = $request->account_name;
-        $password = md5($request->account_password);
-        $result = DB::table('tbl_customer')->where('customer_name', $name)->where('customer_password', $password)->first();
-
-        if ($result) {
-            Session::put('customer_id', $result->customer_id);
+        $name = $request->input('account_name');
+        $password = $request->input('account_password');
+        \Log::debug('Login attempt', ['name' => $name, 'password' => $password]);
+        $user = \App\Models\Login::where('admin_name', $name)->first();
+        \Log::debug('User found', ['user' => $user]);
+        $passwordCheck = $user ? \Hash::check($password, $user->admin_password) : false;
+        \Log::debug('Password check', ['result' => $passwordCheck]);
+        if ($user && $passwordCheck) {
+            Session::put('customer_id', $user->id ?? $user->admin_id);
+            Session::put('customer_name', $user->admin_name);
             if (Session::get('cart')) {
                 return Redirect::to('/checkout');
             } else {

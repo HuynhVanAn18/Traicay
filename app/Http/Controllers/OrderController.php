@@ -33,7 +33,7 @@ class OrderController extends Controller
     }
     public function order_update_qty(Request $request){
       $this->AuthenLogin();
-      //update order đã xử lí
+      //update order đã xử lý
       $data = $request ->all();
       $order = Order::find($data['order_id']);
       $order->order_status = $data['order_status'];

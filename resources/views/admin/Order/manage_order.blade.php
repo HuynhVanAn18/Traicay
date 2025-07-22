@@ -39,7 +39,7 @@
                                         <select name="order_status" class="form-control">
                                           <option value="">Tình trạng</option>
                                           <option value="1" {{ request('order_status') == '1' ? 'selected' : '' }}>Đơn hàng mới</option>
-                                          <option value="2" {{ request('order_status') == '2' ? 'selected' : '' }}>Đã xử lí đơn hàng</option>
+                                          <option value="2" {{ request('order_status') == '2' ? 'selected' : '' }}>Đã xử lý đơn hàng</option>
                                         </select>
                                       </div>
                                       <div class="col-auto">
@@ -84,7 +84,7 @@
                                                 <?php
                                               }else{
                                                 ?>
-                                                {{__('Đã xử lí đơn hàng')}}
+                                                {{__('Đã xử lý đơn hàng')}}
                                                 <?php 
                                               }      
                                               ?>

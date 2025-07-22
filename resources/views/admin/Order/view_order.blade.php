@@ -228,7 +228,7 @@
                                           @csrf
                                           <select class="form-control order_details">
                                             <option id="{{$or->order_id}}" selected value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" value="2">{{__('Đã xử lí-Đã Giao Hàng')}}</option>
+                                            <option id="{{$or->order_id}}" value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @else
@@ -236,7 +236,7 @@
                                           @csrf
                                           <select class="form-control order_details">
                                             <option disabled id="{{$or->order_id}}"  value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" selected value="2">{{__('Đã xử lí-Đã Giao Hàng')}}</option>
+                                            <option id="{{$or->order_id}}" selected value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @endif

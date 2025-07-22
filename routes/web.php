@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -199,8 +198,9 @@ Route::get('/logout-auth','App\Http\Controllers\AuthController@logout_auth');
 Route::post('/register','App\Http\Controllers\AuthController@register');
 Route::post('/login','App\Http\Controllers\AuthController@login')->name('login_admin');
 //user
-
 Route::get('/all-user','App\Http\Controllers\UserController@all_user');
+Route::get('/add-user','App\Http\Controllers\UserController@add_user');
+Route::post('/save-user','App\Http\Controllers\UserController@save_user');
 Route::get('/delete-user-roles/{admin_id}','App\Http\Controllers\UserController@delete_user_roles');
 Route::post('/assign-roles','App\Http\Controllers\UserController@assign_roles');
 
@@ -264,3 +264,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin/staff')->name('staff.')->gro
     Route::post('/{id}/update', [App\Http\Controllers\StaffController::class, 'update'])->name('update');
     Route::delete('/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('destroy');
 });
+
+// Chatbot routes
+Route::get('/chatbot', [App\Http\Controllers\ChatbotController::class, 'index']);
+Route::post('/chatbot/message', [App\Http\Controllers\ChatbotController::class, 'sendMessage']);

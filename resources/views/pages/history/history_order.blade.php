@@ -113,11 +113,11 @@
                                   if ($order->order_status==1) {
 
                                     ?>
-                                    {{ __('Đơn của bạn đang chờ xử lí') }}
+                                    {{ __('Đơn của bạn đang chờ xử lý') }}
                                     <?php
                                   }else{
                                     ?>
-                                    {{ __('Đã đơn hàng của bạn đã được xử lí') }}
+                                    {{ __('Đơn hàng của bạn đã được xử lý') }}
                                     <?php 
                                   }      
                                   ?>
