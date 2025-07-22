@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-header card-header-rose card-header-text">
           <div class="card-text">
-            <h4 class="card-title">{{__('Thêm Ads')}}</h4>
+            <h4 class="card-title">{{__('Thêm quảng cáo')}}</h4>
           </div>
           <span class="" style="margin-left: 800px;">
            <?php

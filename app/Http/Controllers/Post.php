@@ -62,11 +62,20 @@ class Post extends Controller
         
 
     }
-    public function all_post(){
-        $this->AuthenLogin();
-        $all_post = Posts::orderBy('post_id','DESC')->paginate(5);
-        return view('admin.Post.all_post')->with(compact('all_post'));
+  public function all_post(Request $request){
+    $this->AuthenLogin();
+    $query = Posts::query();
+
+    if ($request->filled('post_title')) {
+        $query->where('post_title', 'like', '%' . $request->post_title . '%');
     }
+    if ($request->filled('post_status')) {
+        $query->where('post_status', $request->post_status);
+    }
+
+    $all_post = $query->orderBy('post_id','DESC')->paginate(5)->appends($request->except('page'));
+    return view('admin.Post.all_post', compact('all_post'));
+}
     public function delete_post($post_id){
         $this->AuthenLogin();
         $post = Posts::find($post_id);

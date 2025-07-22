@@ -6,7 +6,7 @@
       <div class="card-icon">
         <i class="material-icons">assignment</i>
       </div>
-      <h4 class="card-title "> {{__('Liệt Kê Danh Mục Blog')}}</h4>
+      <h4 class="card-title "> {{__('Liệt Kê Danh Mục Bài viết')}}</h4>
     </div>
     <span class="" style="margin-left: 800px;">
      <?php

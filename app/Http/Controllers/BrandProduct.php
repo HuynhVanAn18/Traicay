@@ -126,4 +126,23 @@ class BrandProduct extends Controller
         return view('pages.brand.show_brand')->with('category',$cate_product)->with('brand',$brand_product)->with('brand_by_id',$brand_by_id)->with('brand_name',$brand_name)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         
     }
+    public function all_brand_product_filtered(Request $request) {
+    // Filter product by brand_name and brand_name_en
+        $brand_name = $request->input('brand_name');
+        $brand_name_en = $request->input('brand_name_en');
+
+        $query = DB::table('tbl_brand_product');
+
+        if ($brand_name) {
+            $query->where('brand_name', 'like', '%' . $brand_name . '%');
+        }
+
+        if ($brand_name_en) {
+            $query->where('brand_name_en', 'like', '%' . $brand_name_en . '%');
+        }
+
+        $filtered_brands = $query->paginate(5);
+
+        return view('admin.Brand.all_brand_product')->with('all_brand_product', $filtered_brands);
+}
 }

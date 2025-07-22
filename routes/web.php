@@ -79,7 +79,7 @@ Route::get('/view-history-order/{order_code}','App\Http\Controllers\CheckoutCont
 
 //Admin Dashboard
 Route::get('/admin','App\Http\Controllers\AuthController@login_auth');
-Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
+Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard')->middleware(['auth', 'admin']);
 Route::get('/logout','App\Http\Controllers\AdminController@logout');
 Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
 Route::post('/filter-by-date','App\Http\Controllers\AdminController@filter_by_date');
@@ -101,6 +101,7 @@ Route::post('/update-footer/{info_id}','App\Http\Controllers\Information@update_
 //Category Product
 Route::get('/add-category-product','App\Http\Controllers\CategoryProduct@add_category_product');
 Route::get('/all-category-product','App\Http\Controllers\CategoryProduct@all_category_product');
+Route::get('/all-category-product-filter','App\Http\Controllers\CategoryProduct@all_category_product_filtered');
 Route::get('/edit-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@edit_category_product');
 Route::get('/delete-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@delete_category_product');
 Route::get('/unactive-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@unactive_category_product');
@@ -134,6 +135,7 @@ Route::post('/save-post','App\Http\Controllers\Post@save_post');
 
 Route::get('/add-brand-product','App\Http\Controllers\BrandProduct@add_brand_product');
 Route::get('/all-brand-product','App\Http\Controllers\BrandProduct@all_brand_product');
+Route::get('/all-brand-product-filtered','App\Http\Controllers\BrandProduct@all_brand_product_filtered');
 Route::get('/edit-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@edit_brand_product');
 Route::get('/delete-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@delete_brand_product');
 Route::get('/unactive-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@unactive_brand_product');
@@ -185,7 +187,7 @@ Route::post('/order-update-qty','App\Http\Controllers\OrderController@order_upda
 Route::post('/update-qty','App\Http\Controllers\OrderController@update_qty');
 Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order');
 
-//print
+// print
 Route::get('/print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order');
 
 
@@ -196,8 +198,9 @@ Route::get('/logout-auth','App\Http\Controllers\AuthController@logout_auth');
 Route::post('/register','App\Http\Controllers\AuthController@register');
 Route::post('/login','App\Http\Controllers\AuthController@login')->name('login_admin');
 //user
-
 Route::get('/all-user','App\Http\Controllers\UserController@all_user');
+Route::get('/add-user','App\Http\Controllers\UserController@add_user');
+Route::post('/save-user','App\Http\Controllers\UserController@save_user');
 Route::get('/delete-user-roles/{admin_id}','App\Http\Controllers\UserController@delete_user_roles');
 Route::post('/assign-roles','App\Http\Controllers\UserController@assign_roles');
 
@@ -230,3 +233,38 @@ Route::post('/set-fee', 'App\Http\Controllers\CheckoutController@setFee');
 Route::get('/order/confirmation/{order_code}', function($order_code) {
     return view('order.confirmation', ['order_code' => $order_code]);
 })->name('order.confirmation');
+
+// Stock Transactions
+Route::get('/all-stock-transactions', 'App\Http\Controllers\StockTransactionsController@all_stock_transactions')->name('all-stock-transactions');
+Route::get('/add-stock-transaction', 'App\Http\Controllers\StockTransactionsController@add_stock_transaction')->name('add-stock-transaction');
+Route::post('/save-stock-transaction', 'App\Http\Controllers\StockTransactionsController@save_stock_transaction')->name('save-stock-transaction');
+
+// Route::get('/manage-order','App\Http\Controllers\OrderController@manage_order')->middleware(['auth', 'staff']);
+// Route::get('/view-order/{order_code}','App\Http\Controllers\OrderController@view_order')->middleware(['auth', 'staff']);
+// Route::post('/order-update-qty','App\Http\Controllers\OrderController@order_update_qty')->middleware(['auth', 'staff']);
+// Route::post('/update-qty','App\Http\Controllers\OrderController@update_qty')->middleware(['auth', 'staff']);
+// Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order')->middleware(['auth', 'staff']);
+// Route::get('/print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order')->middleware(['auth', 'staff']);
+
+// Route::get('/add-product','App\Http\Controllers\Product@add_product')->middleware(['auth', 'staff']);
+// Route::get('/all-product','App\Http\Controllers\Product@all_product')->middleware(['auth', 'staff']);
+// Route::get('/edit-product/{product_id}','App\Http\Controllers\Product@edit_product')->middleware(['auth', 'staff']);
+// Route::get('/delete-product/{product_id}','App\Http\Controllers\Product@delete_product')->middleware(['auth', 'staff']);
+// Route::get('/unactive-product/{product_id}','App\Http\Controllers\Product@unactive_product')->middleware(['auth', 'staff']);
+// Route::get('/active-product/{product_id}','App\Http\Controllers\Product@active_product')->middleware(['auth', 'staff']);
+// Route::post('/save-product','App\Http\Controllers\Product@save_product')->middleware(['auth', 'staff']);
+// Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product')->middleware(['auth', 'staff']);
+
+// Staff management (admin only)
+Route::middleware(['auth', 'admin'])->prefix('admin/staff')->name('staff.')->group(function () {
+    Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('create');
+    Route::post('/store', [App\Http\Controllers\StaffController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [App\Http\Controllers\StaffController::class, 'edit'])->name('edit');
+    Route::post('/{id}/update', [App\Http\Controllers\StaffController::class, 'update'])->name('update');
+    Route::delete('/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('destroy');
+});
+
+// Chatbot routes
+Route::get('/chatbot', [App\Http\Controllers\ChatbotController::class, 'index']);
+Route::post('/chatbot/message', [App\Http\Controllers\ChatbotController::class, 'sendMessage']);

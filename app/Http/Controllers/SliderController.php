@@ -37,17 +37,27 @@ class SliderController extends Controller
     }
     public function unactive_slider($slider_id){
         $this->AuthenLogin();
-        DB::table('tbl_slider')->where('slider_id',$slider_id)->update(['slider_status'=>1]);
-        Session::put('message','kích hoạt thành công');
+        $slider = Slider::find($slider_id);
+        if($slider) {
+            $slider->slider_status = 1;
+            $slider->save();
+            Session::put('message','Kích hoạt thành công');
+        } else {
+            Session::put('message','Slider không tồn tại');
+        }
         return Redirect::to('all-slider');
-
     }
     public function active_slider($slider_id){
         $this->AuthenLogin();
-        DB::table('tbl_slider')->where('slider_id',$slider_id)->update(['slider_status'=>0]);
-        Session::put('message','Ẩn thành công');
+        $slider = Slider::find($slider_id);
+        if($slider) {
+            $slider->slider_status = 0;
+            $slider->save();
+            Session::put('message','Ẩn thành công');
+        } else {
+            Session::put('message','Slider không tồn tại');
+        }
         return Redirect::to('all-slider');
-
     }
     
     public function save_slider(SliderRequests $request){

@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title related__product__title">
-                        <h2>{{__('Payment details')}}</h2>
+                        <h2>{{__('Chi tiết thanh toán')}}</h2>
                      </div>
                     <h6><span class="icon_tag_alt"></span>{{__('Có phiếu giảm giá ?')}} <a href="{{URL::to('/gio-hang')}}">{{__('Click here ?')}}</a> {{__('to enter your code')}}
                     </h6>
@@ -26,12 +26,12 @@
                                 </div>
                             </div>
                             <div class="checkout__input">
-                                <p>{{__('Thành Phố')}}<span>*</span></p>
-                                <input type="text" placeholder="{{__('Vui lòng nhập thành phố')}}" name="shipping_city" class="shipping_city" value="{{ Session::get('shipping_city', '') }}">
+                                <p>{{__('Tỉnh/Thành phố')}}<span>*</span></p>
+                                <input type="text" placeholder="{{__('Vui lòng nhập tỉnh/Thành phố')}}" name="shipping_city" class="shipping_city" value="{{ Session::get('shipping_city', '') }}">
                             </div>
                             <div class="checkout__input">
                                 <p>{{__('Địa Chỉ')}}<span>*</span></p>
-                                <input type="text" placeholder="{{__('Số nhà, Khu phố, Tên đường, Phường/Quận')}}" class="shipping_address" name="shipping_address"  id="shipping_address" value="{{ Session::get('shipping_address', '') }}">
+                                <input type="text" placeholder="{{__('Tên đường, Số nhà, Xã/Phường, Quận/Huyện')}}" class="shipping_address" name="shipping_address"  id="shipping_address" value="{{ Session::get('shipping_address', '') }}">
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -87,10 +87,10 @@
                                 <form >
                                     @csrf
                                     <div class="">
-                                        <label class="">{{__('Chọn Thành Phố')}}</label>
+                                        <label class="">{{__('Chọn Tỉnh/Thành Phố')}}</label>
                                             <div>
                                               <select class="form-control input-sm m-bot15 choose city" name="city" id="city">
-                                                <option value="">-----{{__('Chọn Thành Phố')}}-----</option>
+                                                <option value="">-----{{__('Chọn Tỉnh/Thành Phố')}}-----</option>
                                                 @foreach($city as $key => $ci)
                                                 <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
                                                 @endforeach

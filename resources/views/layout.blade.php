@@ -228,7 +228,7 @@
         <div class="container">
             <div class="row">
                 @foreach($contact_info as $key => $ci)
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <br>
                     <div class="footer__about">
                         <center><h5>{{__('Địa Chỉ')}}</h5></center>
@@ -239,9 +239,6 @@
                             <li>{!!$ci->info_contact!!}</li>
                         </ul>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <br>
                     <div class="footer__about">
                         <center><h5>{{__('Bài Viết Hữu Ích')}}</h5></center>
                         <ul>
@@ -250,17 +247,13 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="footer__about">
+                </div>
+               
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <br>
+                     <div class="footer__about">
                         <center><h5>{{__('Map')}}</h5></center>
                         <center>{!!$ci->info_map!!}</center>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <br>
-                    <div class="footer__about">
-                        <center><h5>{{__('Fanpage FaceBook')}}</h5></center>
-                        {!!$ci->info_fanpage!!}
-                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -353,7 +346,7 @@
 
                  data.reverse();// đảo ngược sản phẩm mới lên đầu
 
-                 document.getElementById('row_wishlist').style.overflow = 'auto';
+                 document.getElementById('row_wishlist').style.overflow = 'scroll';
                  document.getElementById('row_wishlist').style.height = '200px';
                 
                  for(i=0;i<data.length;i++){
@@ -454,7 +447,7 @@
 
                 if (parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
                     if (parseInt(cart_product_quantity)==0) {
-                        swal("{{__('Vui lòng liên hệ SĐT: 099999999 để đặt hàng!')}}");
+                        swal("{{__('Vui lòng liên hệ SĐT: 0379145253 để đặt hàng!')}}");
                     } else{
                         swal("{{__('Vui Lòng Nhập Số Lượng Nhỏ Hơn')}} "+cart_product_quantity,"", "warning");
                     }
@@ -623,12 +616,12 @@
                         method: 'POST',
                         data:{shipping_name:shipping_name,shipping_city:shipping_city,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_email:shipping_email,shipping_note:shipping_note,shipping_method:shipping_method,order_fee:order_fee,order_coupon:order_coupon,_token:_token},
                         success:function(){
-                         swal("{{__('Đơn hàng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lí !')}}", "success");
+                         swal("{{__('Đơn hàng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lý !')}}", "success");
                              window.setTimeout(function(){
                                 location.reload();
                             },3000);
                         },error:function(){
-                         swal("{{__('vui lòng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lí !')}}", "success");
+                         swal("{{__('vui lòng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lý !')}}", "success");
                         }
                     });
                     
