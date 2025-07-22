@@ -816,6 +816,7 @@ $.ajax({
     </script>
     <script type="text/javascript">
 </script>
+@include('partials.chatbot-widget')
 </body>
 
 </html>
