@@ -91,8 +91,10 @@
 
                                         <i class="fa fa-user"></i><a href="{{URL::to('/login-checkout')}}"><div style="margin-left: 5px;">{{__('Đăng Nhập')}}</div></a>
                                         <?php 
-                                    }      
-                                        ?>
+
+                                    }
+                                    ?>
+                                    <i class="fa fa-user-plus"></i><a href="{{URL::to('/register-checkout')}}"><div style="margin-left: 5px;"></div>Đăng ký</div></a>
                                 
                                 
                             </div>
