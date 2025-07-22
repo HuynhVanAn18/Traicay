@@ -182,7 +182,7 @@
             <script>
               document.write(new Date().getFullYear())
             </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com/" target="_blank">Quang</a> for a better web.
+            <a href="https://www.creative-tim.com/" target="_blank">An</a> for a better web.
           </div>
         </div>
       </footer>

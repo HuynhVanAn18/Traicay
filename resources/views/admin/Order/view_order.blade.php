@@ -193,13 +193,14 @@
                                           {{$details->product->product_qty}}
                                         </td>
                                         <td>
-                                          <input type="number" min="1" {{$order_status==2?'disabled':''}} class="order_qty_{{$details->product_id}}" name="product_qty" value="{{$details->product_sales_quantity}}">
+                                          <input type="hidden" min="1" {{$order_status==2?'disabled':''}} class="order_qty_{{$details->product_id}}" name="product_qty" value="{{$details->product_sales_quantity}}">
                                           <input type="hidden" name="order_product_id" class="order_product_id" value="{{$details->product_id}}">
                                           <input type="hidden" name="order_qty_storage" class="order_qty_storage_{{$details->product_id}}" value="{{$details->product->product_qty}}">
                                           <input type="hidden" name="order_code" class="order_code" value="{{$details->order_code}}">
-                                          @if($order_status != 2)
+                                          <span>{{$details->product_sales_quantity}}</span>
+                                          <!-- @if($order_status != 2)
                                           <button class="btn btn-default update_qty_order" data-product_id="{{$details->product_id}}" name="update_qty_order">{{__('Cập Nhập')}}</button>
-                                          @endif
+                                          @endif -->
                                         </td>
                                         <td>
                                           {{number_format($details->product_price,0,',','.').' '.'VNĐ'}}
@@ -227,7 +228,7 @@
                                           @csrf
                                           <select class="form-control order_details">
                                             <option id="{{$or->order_id}}" selected value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" value="2">{{__('Đã xử lí-Đã Giao Hàng')}}</option>
+                                            <option id="{{$or->order_id}}" value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @else
@@ -235,7 +236,7 @@
                                           @csrf
                                           <select class="form-control order_details">
                                             <option disabled id="{{$or->order_id}}"  value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" selected value="2">{{__('Đã xử lí-Đã Giao Hàng')}}</option>
+                                            <option id="{{$or->order_id}}" selected value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @endif

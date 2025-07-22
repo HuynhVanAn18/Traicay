@@ -31,16 +31,63 @@ class Product extends Controller
         $brand_product = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
         return view('admin.Product.add_product')->with('cate_product',$cate_product)->with('brand_product',$brand_product);
     }
-    public function all_product (){
-        $this->AuthenLogin();
-        //lấy ra sản phẩm thuộc danh mục nào và thương hiệu nào
-        $all_product = DB::table('tbl_product')
+    
+    // public function all_product (){
+    //     $this->AuthenLogin();
+    //     //lấy ra sản phẩm thuộc danh mục nào và thương hiệu nào
+    //     $all_product = DB::table('tbl_product')
+    //     ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+    //     ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+    //     ->orderby('tbl_product.product_id','desc')->paginate(5);
+    //     $manager_product = view('admin.Product.all_product')->with('all_product',$all_product);
+    //     return view('admin_layout')->with('admin.Product.all_product',$manager_product);
+    // }
+    public function all_product(Request $request) {
+    $this->AuthenLogin();
+
+    // Get category and brand lists for filter dropdowns
+    $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+    $brand_product = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
+
+    // Build the query with joins
+    $query = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
-        ->orderby('tbl_product.product_id','desc')->paginate(5);
-        $manager_product = view('admin.Product.all_product')->with('all_product',$all_product);
-        return view('admin_layout')->with('admin.Product.all_product',$manager_product);
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id');
+
+    // Apply filters
+    if ($request->filled('product_name')) {
+        $query->where('tbl_product.product_name', 'like', '%' . $request->product_name . '%');
     }
+    if ($request->filled('product_name_en')) {
+        $query->where('tbl_product.product_name_en', 'like', '%' . $request->product_name_en . '%');
+    }
+    if ($request->filled('price_min')) {
+        $query->where('tbl_product.product_price', '>=', $request->price_min);
+    }
+    if ($request->filled('price_max')) {
+        $query->where('tbl_product.product_price', '<=', $request->price_max);
+    }
+    if ($request->filled('category_id')) {
+        $query->where('tbl_product.category_id', $request->category_id);
+    }
+    if ($request->filled('brand_id')) {
+        $query->where('tbl_product.brand_id', $request->brand_id);
+    }
+    if ($request->filled('product_status')) {
+        $query->where('tbl_product.product_status', $request->product_status);
+    }
+    // Sort by quantity
+    if ($request->filled('sort_qty')) {
+        $query->orderBy('tbl_product.product_qty', $request->sort_qty);
+    } else {
+        $query->orderBy('tbl_product.product_id', 'desc');
+    }
+
+    $all_product = $query->paginate(5)->appends($request->except('page'));
+
+    return view('admin.Product.all_product', compact('all_product', 'cate_product', 'brand_product'));
+}
+
     public function save_product (AddProductRequests $request){
         $this->AuthenLogin();
         $data = array();

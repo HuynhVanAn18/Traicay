@@ -27,6 +27,34 @@
                                 </div>
                                 <h4 class="card-title ">{{__('Chi tiết đơn hàng')}}</h4>
                               </div>
+                              <!-- Filter Form Start -->
+                              <div class="card mb-4" style="background: #f8f9fa; border: 1px solid #e3e6f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                <div class="card-body p-3">
+                                  <form method="GET" action="">
+                                    <div class="form-row align-items-center">
+                                      <div class="col-auto mb-2 mb-sm-0">
+                                        <input type="text" name="order_code" class="form-control" placeholder="Mã đơn hàng" value="{{ request('order_code') }}">
+                                      </div>
+                                      <div class="col-auto mb-2 mb-sm-0">
+                                        <select name="order_status" class="form-control">
+                                          <option value="">Tình trạng</option>
+                                          <option value="1" {{ request('order_status') == '1' ? 'selected' : '' }}>Đơn hàng mới</option>
+                                          <option value="2" {{ request('order_status') == '2' ? 'selected' : '' }}>Đã xử lý đơn hàng</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary">
+                                          <i class="fa fa-filter"></i> Lọc
+                                        </button>
+                                        <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                          <i class="fa fa-times"></i> Xóa lọc
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <!-- Filter Form End -->
                               <div class="widget-content nopadding">
                                 <table class="table table-bordered data-table">
                                   <thead>
@@ -56,7 +84,7 @@
                                                 <?php
                                               }else{
                                                 ?>
-                                                {{__('Đã xử lí đơn hàng')}}
+                                                {{__('Đã xử lý đơn hàng')}}
                                                 <?php 
                                               }      
                                               ?>

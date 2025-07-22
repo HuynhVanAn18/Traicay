@@ -228,7 +228,7 @@
         <div class="container">
             <div class="row">
                 @foreach($contact_info as $key => $ci)
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <br>
                     <div class="footer__about">
                         <center><h5>{{__('Địa Chỉ')}}</h5></center>
@@ -239,9 +239,6 @@
                             <li>{!!$ci->info_contact!!}</li>
                         </ul>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <br>
                     <div class="footer__about">
                         <center><h5>{{__('Bài Viết Hữu Ích')}}</h5></center>
                         <ul>
@@ -250,17 +247,13 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="footer__about">
+                </div>
+               
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <br>
+                     <div class="footer__about">
                         <center><h5>{{__('Map')}}</h5></center>
                         <center>{!!$ci->info_map!!}</center>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <br>
-                    <div class="footer__about">
-                        <center><h5>{{__('Fanpage FaceBook')}}</h5></center>
-                        {!!$ci->info_fanpage!!}
-                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -454,7 +447,7 @@
 
                 if (parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
                     if (parseInt(cart_product_quantity)==0) {
-                        swal("{{__('Vui lòng liên hệ SĐT: 099999999 để đặt hàng!')}}");
+                        swal("{{__('Vui lòng liên hệ SĐT: 0379145253 để đặt hàng!')}}");
                     } else{
                         swal("{{__('Vui Lòng Nhập Số Lượng Nhỏ Hơn')}} "+cart_product_quantity,"", "warning");
                     }
@@ -515,22 +508,23 @@
   <script type="text/javascript">
         $(document).ready(function(){
             $('.calculate').click(function(){
-                var matp = $('.city').val();
-                var maqh = $('.province').val();
-                var xaid = $('.wards').val();
-                var _token = $('input[name="_token"]').val();
-                if(matp == '' || maqh =='' || xaid ==''){
-                    swal("{{__('Lỗi!')}}", "{{__('Vui lòng chọn thông tin để tính phí vận chuyển !')}}", "info");
-                }else{
-                    $.ajax({
-                    url : '{{url('/calculate-ship')}}',
-                    method: 'POST',
-                    data:{matp:matp,maqh:maqh,xaid:xaid,_token:_token},
-                    success:function(){
-                       location.reload(); 
-                    }
-                    });
-                } 
+                // var matp = $('.city').val();
+                // var maqh = $('.province').val();
+                // var xaid = $('.wards').val();
+                // var _token = $('input[name="_token"]').val();
+                // if(matp == '' || maqh =='' || xaid ==''){
+                //     swal("{{__('Lỗi!')}}", "{{__('Vui lòng chọn thông tin để tính phí vận chuyển !')}}", "info");
+                // }else{
+                //     $.ajax({
+                //     url : '{{url('/calculate-ship')}}',
+                //     method: 'POST',
+                //     data:{matp:matp,maqh:maqh,xaid:xaid,_token:_token},
+                //     success:function(){
+                //        location.reload(); 
+                //     }
+                //     });
+                // } 
+                
         });
     });
     </script>
@@ -583,8 +577,31 @@
                     var order_fee = $('.order_fee').val();
                     var order_coupon = $('.order_coupon').val();
                     var _token = $('input[name="_token"]').val();
-                    // alert(shipping_method);
-                    if (shipping_method == 0) {
+
+                    console.log("Shipping name:", shipping_name);
+                    console.log("Shipping city:", shipping_city);
+                    console.log("Shipping address:", shipping_address);
+                    console.log("Shipping phone:", shipping_phone);
+                    console.log("Shipping email:", shipping_email);
+                    console.log("Shipping note:", shipping_note);
+                    console.log("Shipping method:", shipping_method);
+                    console.log("Order fee:", order_fee);
+                    console.log("Order coupon:", order_coupon);
+                    console.log("Token:", _token);
+
+                    // {{-- Kiểm tra thông tin --}}
+                    
+
+                    if (shipping_name == '' || shipping_city == '' || shipping_address == '' || shipping_phone == '' || shipping_email == '') {
+                        swal("{{__('Lỗi!')}}", "{{__('Vui lòng điền đầy đủ thông tin để đặt hàng')}}", "warning");
+                        return false;
+                    }
+                    if (shipping_method == undefined) {
+                        swal("{{__('Lỗi!')}}", "{{__('Vui lòng chọn phương thức thanh toán')}}", "warning");
+                        return false;
+                    }
+
+                      if (shipping_method == 0) {
                         $.ajax({
                         url : '{{url('/payment-online')}}',
                         method: 'POST',
@@ -599,16 +616,17 @@
                         method: 'POST',
                         data:{shipping_name:shipping_name,shipping_city:shipping_city,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_email:shipping_email,shipping_note:shipping_note,shipping_method:shipping_method,order_fee:order_fee,order_coupon:order_coupon,_token:_token},
                         success:function(){
-                         swal("{{__('Đơn hàng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lí !')}}", "success");
+                         swal("{{__('Đơn hàng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lý !')}}", "success");
                              window.setTimeout(function(){
                                 location.reload();
                             },3000);
                         },error:function(){
-                         swal("{{__('vui lòng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lí !')}}", "success");
+                         swal("{{__('vui lòng !')}}", "{{__('Cảm ơn bạn đã đặt hàng, đơn hàng của bạn đang được xử lý !')}}", "success");
                         }
                     });
                     
-                    }
+                    } 
+                    
                 } else {
                     swal("{{__('Hủy!')}}", "{{__('Đơn hàng của bạn chưa được đặt')}}", "error");
                 }
@@ -617,6 +635,187 @@
     });
     </script>
     {{-- end send-order --}}
+    <script type="text/javascript">
+
+// Mỗi tỉnh thành có một mã code duy nhất, dựa vào đó để xác định vị trí của tỉnh thành trên bản đồ
+const provinceCoordinate = [
+  { name: "An Giang", code: 89, lat: 10.5216, lng: 105.1259 },
+  { name: "Bà Rịa - Vũng Tàu", code: 77, lat: 10.5417, lng: 107.2428 },
+  { name: "Bắc Giang", code: 24, lat: 21.281, lng: 106.1976 },
+  { name: "Bắc Kạn", code: 6, lat: 22.147, lng: 105.8348 },
+  { name: "Bạc Liêu", code: 95, lat: 9.294, lng: 105.7272 },
+  { name: "Bắc Ninh", code: 27, lat: 21.1862, lng: 106.0763 },
+  { name: "Bến Tre", code: 83, lat: 10.2434, lng: 106.3757 },
+  { name: "Bình Định", code: 52, lat: 13.782, lng: 109.2197 },
+  { name: "Bình Dương", code: 74, lat: 11.1334, lng: 106.6558 },
+  { name: "Bình Phước", code: 70, lat: 11.7512, lng: 106.7235 },
+  { name: "Bình Thuận", code: 60, lat: 11.0904, lng: 108.0721 },
+  { name: "Cà Mau", code: 96, lat: 9.1768, lng: 105.1524 },
+  { name: "Cần Thơ", code: 92, lat: 10.0452, lng: 105.7469 },
+  { name: "Cao Bằng", code: 4, lat: 22.6655, lng: 106.257 },
+  { name: "Đà Nẵng", code: 48, lat: 16.0544, lng: 108.2022 },
+  { name: "Đắk Lắk", code: 66, lat: 12.71, lng: 108.2378 },
+  { name: "Đắk Nông", code: 67, lat: 12.2539, lng: 107.6098 },
+  { name: "Điện Biên", code: 11, lat: 21.386, lng: 103.023 },
+  { name: "Đồng Nai", code: 75, lat: 10.9453, lng: 106.824 },
+  { name: "Đồng Tháp", code: 87, lat: 10.4576, lng: 105.6324 },
+  { name: "Gia Lai", code: 64, lat: 13.8079, lng: 108.1094 },
+  { name: "Hà Giang", code: 2, lat: 22.824, lng: 104.9836 },
+  { name: "Hà Nam", code: 35, lat: 20.583, lng: 105.9229 },
+  { name: "Hà Nội", code: 1, lat: 21.0285, lng: 105.8544 },
+  { name: "Hà Tĩnh", code: 42, lat: 18.3428, lng: 105.9057 },
+  { name: "Hải Dương", code: 30, lat: 20.939, lng: 106.3306 },
+  { name: "Hải Phòng", code: 31, lat: 20.8449, lng: 106.6881 },
+  { name: "Hậu Giang", code: 93, lat: 9.7579, lng: 105.641 },
+  { name: "Hòa Bình", code: 17, lat: 20.8584, lng: 105.3376 },
+  { name: "Hưng Yên", code: 33, lat: 20.6464, lng: 106.0511 },
+  { name: "Khánh Hòa", code: 56, lat: 12.2436, lng: 109.1967 },
+  { name: "Kiên Giang", code: 91, lat: 10.0122, lng: 105.08 },
+  { name: "Kon Tum", code: 62, lat: 14.349, lng: 108.0 },
+  { name: "Lai Châu", code: 12, lat: 22.3954, lng: 103.4589 },
+  { name: "Lâm Đồng", code: 68, lat: 11.9416, lng: 108.4419 },
+  { name: "Lạng Sơn", code: 20, lat: 21.8537, lng: 106.7615 },
+  { name: "Lào Cai", code: 10, lat: 22.48, lng: 103.9738 },
+  { name: "Long An", code: 80, lat: 10.5438, lng: 106.4113 },
+  { name: "Nam Định", code: 36, lat: 20.4387, lng: 106.1621 },
+  { name: "Nghệ An", code: 40, lat: 19.2342, lng: 104.9204 },
+  { name: "Ninh Bình", code: 37, lat: 20.2539, lng: 105.9745 },
+  { name: "Ninh Thuận", code: 58, lat: 11.5671, lng: 108.9886 },
+  { name: "Phú Thọ", code: 25, lat: 21.3792, lng: 105.2197 },
+  { name: "Phú Yên", code: 54, lat: 13.0882, lng: 109.0929 },
+  { name: "Quảng Bình", code: 44, lat: 17.4689, lng: 106.6223 },
+  { name: "Quảng Nam", code: 49, lat: 15.5393, lng: 108.0192 },
+  { name: "Quảng Ngãi", code: 51, lat: 15.1214, lng: 108.8076 },
+  { name: "Quảng Ninh", code: 22, lat: 21.0064, lng: 107.2925 },
+  { name: "Quảng Trị", code: 45, lat: 16.8183, lng: 107.0928 },
+  { name: "Sóc Trăng", code: 94, lat: 9.6031, lng: 105.9783 },
+  { name: "Sơn La", code: 14, lat: 21.3258, lng: 103.9188 },
+  { name: "Tây Ninh", code: 72, lat: 11.3606, lng: 106.0989 },
+  { name: "Thái Bình", code: 34, lat: 20.45, lng: 106.3402 },
+  { name: "Thái Nguyên", code: 19, lat: 21.5956, lng: 105.844 },
+  { name: "Thanh Hóa", code: 38, lat: 19.8072, lng: 105.776 },
+  { name: "Thừa Thiên Huế", code: 46, lat: 16.4637, lng: 107.5909 },
+  { name: "Tiền Giang", code: 82, lat: 10.3759, lng: 106.3435 },
+  { name: "TP. Hồ Chí Minh", code: 79, lat: 10.7769, lng: 106.7009 },
+  { name: "Trà Vinh", code: 84, lat: 9.8127, lng: 106.3454 },
+  { name: "Tuyên Quang", code: 8, lat: 21.8231, lng: 105.214 },
+  { name: "Vĩnh Long", code: 86, lat: 10.2533, lng: 105.9722 },
+  { name: "Vĩnh Phúc", code: 26, lat: 21.3086, lng: 105.6049 },
+  { name: "Yên Bái", code: 15, lat: 21.7051, lng: 104.8705 },
+];
+
+// Hàm tính phí vận chuyển dựa trên khoảng cách giữa hai tỉnh thành
+// Vì chi nhánh nằm ở Cần Thơ (code: 92), nên ta sẽ lấy tọa độ của Cần Thơ làm điểm xuất phát 
+// Hàm này sẽ được gọi mỗi khi người dùng chọn tỉnh thành mới 
+function calculateShippingFee(selectedProvinceCode) {
+    const origin = provinceCoordinate.find((item) => item.code === 92); // Cần Thơ
+    const destination = provinceCoordinate.find((item) => item.code == selectedProvinceCode);
+    if (!origin || !destination) {
+        console.error("Origin or destination not found");
+        return;
+    }
+
+    // Nếu tỉnh được chọn là Cần Thơ, không cần tính phí vận chuyển
+    if (selectedProvinceCode == 92) {
+        var fee = 0;
+        updateFeeUIAndSession(fee);
+        return;
+    }
+
+    fetch('https://api.openrouteservice.org/v2/directions/driving-car/geojson', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': '5b3ce3597851110001cf62482b8c81c62e6f48a48ec0c0f4f1107e04'
+        },
+        body: JSON.stringify({
+            coordinates: [
+                [origin.lng, origin.lat],
+                [destination.lng, destination.lat]
+            ],
+            profile: 'driving-car'
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const km = data.features[0].properties.summary.distance / 1000;
+        let fee = 0;
+        if (km < 30) fee = 15000;
+        else if (km < 50) fee = 25000;
+        else if (km < 70) fee = 30000;
+        else if (km < 100) fee = 35000;
+        else if (km <= 100) fee = 35000;
+        else fee = 40000;
+        updateFeeUIAndSession(fee);
+    })
+    .catch(error => {
+        console.error("Error fetching distance:", error);
+        alert('Không thể tính phí vận chuyển. Vui lòng thử lại!');
+    });
+}
+
+function updateFeeUIAndSession(fee) {
+    // Cập nhật hiển thị phí vận chuyển trên giao diện
+    $(".order_fee").val(fee);
+    $("#shipping-fee").text(fee.toLocaleString() + ' VND');
+    // Cập nhật phí vận chuyển vào session thông qua AJAX
+    $.ajax({
+        url: '/set-fee',
+        method: 'POST',
+        data: {
+            fee: fee,
+            _token: $('input[name="_token"]').val()
+        },
+        success: function(response) {
+            console.log('Order fee updated in session:', response);
+            // alert('Phí vận chuyển đã được cập nhật thành công!');
+        },
+        error: function(xhr) {
+            alert('Lỗi khi cập nhật phí vận chuyển!');
+        }
+    });
+}
+
+// Mỗi khi thay đổi thành phố/tỉnh, sẽ tính toán lại phí vận chuyển tự động không cần phải ấn nút "Tính phí"
+    $(document).ready(function() {
+        $('.city').on('change', function() {
+            const selectedProvinceCode = $(this).val();
+            if (selectedProvinceCode) { // Nếu đã chọn tỉnh thành, gọi hàm tính phí
+                calculateShippingFee(selectedProvinceCode); // Goị hàm tính phí ở trên
+            } else { // Nếu không chọn tỉnh thành nào, đặt phí vận chuyển về 0
+            // $(".order_fee").val(0); 
+            // $("#shipping-fee").text('0 VND');
+        }
+        $('#calculate').on('click', function() {
+            var shippingData = {
+    shipping_name: $('.shipping_name').val(),
+    shipping_city: $('.shipping_city').val(),
+    shipping_address: $('.shipping_address').val(),
+    shipping_phone: $('.shipping_phone').val(),
+    shipping_email: $('.shipping_email').val(),
+    shipping_note: $('.shipping_note').val(),
+    payment: $('input[name="payment"]:checked').val(),
+    fee: $('.order_fee').val(),
+    _token: $('input[name="_token"]').val() };
+     console.log("Shipping name:", shippingData);
+$.ajax({
+    url: '/set-shipping-session',
+    method: 'POST',
+    data: shippingData,
+    success: function(response) {
+        // reload trang để cập nhật thông tin giao hàng
+        location.reload();
+    },
+    error: function(xhr) {
+        alert('Lỗi khi lưu thông tin giao hàng!');
+    }
+});
+        });
+    });
+});
+    </script>
+    <script type="text/javascript">
+</script>
 </body>
 
 </html>

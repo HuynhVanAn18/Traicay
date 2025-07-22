@@ -62,11 +62,20 @@ class Post extends Controller
         
 
     }
-    public function all_post(){
-        $this->AuthenLogin();
-        $all_post = Posts::orderBy('post_id','DESC')->paginate(5);
-        return view('admin.Post.all_post')->with(compact('all_post'));
+  public function all_post(Request $request){
+    $this->AuthenLogin();
+    $query = Posts::query();
+
+    if ($request->filled('post_title')) {
+        $query->where('post_title', 'like', '%' . $request->post_title . '%');
     }
+    if ($request->filled('post_status')) {
+        $query->where('post_status', $request->post_status);
+    }
+
+    $all_post = $query->orderBy('post_id','DESC')->paginate(5)->appends($request->except('page'));
+    return view('admin.Post.all_post', compact('all_post'));
+}
     public function delete_post($post_id){
         $this->AuthenLogin();
         $post = Posts::find($post_id);
@@ -90,6 +99,7 @@ class Post extends Controller
     public function update_post(Request $request,$post_id){
         $this->AuthenLogin();
         $data = $request->all();
+        
         $post = Posts::find($post_id);
         $post->post_title = $data['post_title'];
         $post->post_slug = $data['post_slug'];
@@ -99,8 +109,12 @@ class Post extends Controller
         $post->post_keywords = $data['post_keywords'];
         $post->post_status = $data['post_status'];
         $post->cate_blog_id = $data['cate_blog_id'];
+
+
         $get_image =$request->file('post_image');
+
         if($get_image){
+            dd($get_image);
             $get_name_image = $get_image->getClientOriginalName(); // lấy tên của hình ảnh
             $name_image = current(explode('.',$get_name_image)); //
             $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
@@ -110,6 +124,7 @@ class Post extends Controller
             Session::put('message','Cập nhập thành công');
             return redirect('all-post');      
         }else{
+            $post->save();
             Session::put('message','Vui lòng thêm ảnh');
             return redirect()->back();
         }

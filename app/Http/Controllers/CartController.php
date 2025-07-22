@@ -90,10 +90,10 @@ class CartController extends Controller
                     $i++;
                     if ($val['session_id']==$key && $qty < $cart[$session]['product_quantity']) {
                         $cart[$session]['product_qty'] = $qty;
-                        $message.='<p style="color:green;">'.$i.'/ Cập Nhập Số Lượng '.$cart[$session]['product_name'].' Thành Công</p>';
+                        $message.='<p">'.$i.'/ Cập Nhập Số Lượng '.$cart[$session]['product_name'].' Thành Công</p>';
                     }
                     elseif ($val['session_id']==$key && $qty > $cart[$session]['product_quantity']) {
-                        $message.='<p style="color:red;">'.$i.'/ Số Lượng '.$cart[$session]['product_name'].' Phải Nhỏ Hơn '.$cart[$session]['product_quantity'].'</p>';
+                        $message.='<p style="color:white; background-color: red;">'.$i.'/ Số Lượng '.$cart[$session]['product_name'].' Phải Nhỏ Hơn '.$cart[$session]['product_quantity'].'</p>';
                     }
                 }
             }
@@ -230,14 +230,23 @@ public function add_cart_ajax(Request $request){
 
     }
 
-    public function all_coupon(){
-        $this->AuthenLogin();
-        $all_coupon = Coupon::orderBy('coupon_id','DESC')->paginate(5);
-        $month= Carbon::now('Asia/Ho_Chi_Minh')->month;
-        $year = Carbon::now('Asia/Ho_Chi_Minh')->year;
-        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
-        return view('admin.Coupon.all_coupon')->with(compact('all_coupon','today','month','year'));
+   public function all_coupon(Request $request){
+    $this->AuthenLogin();
+    $query = Coupon::query();
+
+    if ($request->filled('coupon_name')) {
+        $query->where('coupon_name', 'like', '%' . $request->coupon_name . '%');
     }
+    if ($request->filled('coupon_status')) {
+        $query->where('coupon_status', $request->coupon_status);
+    }
+
+    $all_coupon = $query->orderBy('coupon_id','DESC')->paginate(5)->appends($request->except('page'));
+    $month= Carbon::now('Asia/Ho_Chi_Minh')->month;
+    $year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+    $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
+    return view('admin.Coupon.all_coupon', compact('all_coupon','today','month','year'));
+}
 
     public function edit_coupon($coupon_id){
         $this->AuthenLogin();
