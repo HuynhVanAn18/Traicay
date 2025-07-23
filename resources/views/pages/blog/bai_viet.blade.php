@@ -57,7 +57,8 @@
                         <h2>{{$p->post_title}}</h2>
                         </br>
                         <center><img src="{{asset('upload/post/'.$p->post_image)}}" alt=""></center>
-                        <p>{!!$p->post_content!!}</p>
+                        <div>{!! $p->post_desc !!}</div>
+                        <div>{!! $p->post_content !!}</div>
                     </div>
                     <div class="blog__details__content">
                         <div class="row">

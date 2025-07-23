@@ -40,6 +40,8 @@ class Post extends Controller
         $post->post_title = $data['post_title'];
         $post->post_slug = $data['post_slug'];
         $post->post_desc = $data['post_desc'];
+        \Log::info('DEBUG post_content:', ['content' => $data['post_content']]);
+        \Log::info('DEBUG post_content (update):', ['content' => $data['post_content']]);
         $post->post_content = $data['post_content'];
         $post->post_meta_desc = $data['post_meta_desc'];
         $post->post_keywords = $data['post_keywords'];
@@ -104,6 +106,7 @@ class Post extends Controller
         $post->post_title = $data['post_title'];
         $post->post_slug = $data['post_slug'];
         $post->post_desc = $data['post_desc'];
+        \Log::info('DEBUG post_content (update):', ['content' => $data['post_content']]);
         $post->post_content = $data['post_content'];
         $post->post_meta_desc = $data['post_meta_desc'];
         $post->post_keywords = $data['post_keywords'];

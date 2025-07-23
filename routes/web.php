@@ -268,3 +268,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin/staff')->name('staff.')->gro
 // Chatbot routes
 Route::get('/chatbot', [App\Http\Controllers\ChatbotController::class, 'index']);
 Route::post('/chatbot/message', [App\Http\Controllers\ChatbotController::class, 'sendMessage']);
+
+// CKEditor image upload
+Route::post('ckeditor/upload', [App\Http\Controllers\CKEditorController::class, 'upload'])->name('ckeditor.upload');
