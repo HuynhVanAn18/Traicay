@@ -165,7 +165,6 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
-
         /*
          * Package Service Providers...
          */
@@ -239,7 +238,6 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,       //cho alias
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
 
     ],
 

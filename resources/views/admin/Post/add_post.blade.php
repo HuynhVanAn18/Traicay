@@ -127,4 +127,12 @@
     </div>
   </form>
 </div>
+<script src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script>
+<script>
+  CKEDITOR.replace('ckeditor1', {
+    filebrowserUploadUrl: "{{ url('/ckeditor/upload?_token=') }}{{ csrf_token() }}",
+    filebrowserUploadMethod: 'form',
+    removePlugins: 'easyimage,cloudservices'
+  });
+</script>
 @endsection

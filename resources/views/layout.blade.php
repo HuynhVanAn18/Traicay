@@ -90,9 +90,11 @@
                                         ?>
 
                                         <i class="fa fa-user"></i><a href="{{URL::to('/login-checkout')}}"><div style="margin-left: 5px;">{{__('Đăng Nhập')}}</div></a>
+                                        <i class="fa fa-user-plus"></i><a href="{{URL::to('/register-checkout')}}"><div style="margin-left: 5px;"></div>Đăng ký</div></a>
                                         <?php 
-                                    }      
-                                        ?>
+
+                                    }
+                                    ?>
                                 
                                 
                             </div>
@@ -345,8 +347,8 @@
                  var data = JSON.parse(localStorage.getItem('data'));
 
                  data.reverse();// đảo ngược sản phẩm mới lên đầu
-
-                 document.getElementById('row_wishlist').style.overflow = 'scroll';
+                // only scroll y
+                 document.getElementById('row_wishlist').style.overflow = 'auto';
                  document.getElementById('row_wishlist').style.height = '200px';
                 
                  for(i=0;i<data.length;i++){
@@ -816,6 +818,7 @@ $.ajax({
     </script>
     <script type="text/javascript">
 </script>
+@include('partials.chatbot-widget')
 </body>
 
 </html>
