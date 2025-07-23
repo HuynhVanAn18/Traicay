@@ -347,8 +347,8 @@
                  var data = JSON.parse(localStorage.getItem('data'));
 
                  data.reverse();// đảo ngược sản phẩm mới lên đầu
-
-                 document.getElementById('row_wishlist').style.overflow = 'scroll';
+                // only scroll y
+                 document.getElementById('row_wishlist').style.overflow = 'auto';
                  document.getElementById('row_wishlist').style.height = '200px';
                 
                  for(i=0;i<data.length;i++){
