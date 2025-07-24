@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Shipping;
 use App\Models\Customer;
+use Session;
 use App\Models\Products;
 use App\Models\Statistic;
 use App\Models\Coupon;
@@ -374,33 +375,32 @@ class OrderController extends Controller
 
     public function view_order($order_code){
          
-       $order_details = OrderDetails::with('product')->where('order_code',$order_code)->get();
-       $order = Order::where('order_code',$order_code)->get();
-       foreach ($order as $key => $ord) {
-           $customer_id = $ord->customer_id;
-           $shipping_id = $ord->shipping_id;
-           $order_status = $ord->order_status;
-       }
-       $customer = Customer::where('customer_id',$customer_id)->first();
-       $shipping = Shipping::where('shipping_id',$shipping_id)->first();
-
-
-
-
-
-       $order_details_product = OrderDetails::with('product')->where('order_code',$order_code)->get();
-       foreach ($order_details_product as $key => $order_d) {
-         $product_coupon = $order_d->product_coupon;
-       }
-       if($product_coupon != 'no'){
-        $coupon = Coupon::where('coupon_code',$product_coupon)->first();
-        $coupon_condition = $coupon->coupon_condition;
-        $coupon_number = $coupon->coupon_number;
-        }else{
-          $coupon_condition = 2;
-          $coupon_number = 0;
+        $order_details = OrderDetails::with('product')->where('order_code',$order_code)->get();
+        $order = Order::query()->where('order_code', $order_code)->first();
+        if (!$order) {
+            return abort(404, 'Order not found');
         }
-       return view('admin.Order.view_order')->with(compact('order_details','customer','shipping','order_details','coupon_condition','coupon_number','order','order_status'));
+        $admin_id = isset($order->customer_id) ? $order->customer_id : ($order->admin_id ?? null);
+        $shipping_id = isset($order->shipping_id) ? $order->shipping_id : null;
+        $order_status = isset($order->order_status) ? $order->order_status : null;
+        $customer = $admin_id ? \App\Models\Login::where('admin_id',$admin_id)->first() : null;
+        $shipping = $shipping_id ? Shipping::where('shipping_id',$shipping_id)->first() : null;
+        $order_details_product = $order_details;
+        $product_coupon = 'no';
+        foreach ($order_details_product as $order_d) {
+            if (isset($order_d->product_coupon)) {
+                $product_coupon = $order_d->product_coupon;
+            }
+        }
+        if($product_coupon != 'no'){
+            $coupon = Coupon::where('coupon_code',$product_coupon)->first();
+            $coupon_condition = ($coupon && isset($coupon->coupon_condition)) ? $coupon->coupon_condition : 2;
+            $coupon_number = ($coupon && isset($coupon->coupon_number)) ? $coupon->coupon_number : 0;
+        }else{
+            $coupon_condition = 2;
+            $coupon_number = 0;
+        }
+        return view('admin.Order.view_order')->with(compact('order_details','customer','shipping','order_details','coupon_condition','coupon_number','order','order_status'));
     }
 
     public function delete_order($order_id){

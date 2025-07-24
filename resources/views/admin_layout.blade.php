@@ -50,13 +50,10 @@
           </div>
           <div class="user-info">
             <a data-toggle="collapse" href="#collapseExample" class="username">
-              <span>{{__('Xin Chào')}}
-                <?php
-                $name = Auth::user()->admin_name;
-                if($name){
-                  echo $name;
-                }
-                ?>
+              <span>{{ __('Xin Chào') }}
+                @if(Auth::check())
+                  {{ Auth::user()->admin_name }}
+                @endif
               </span>
             </a>
           </div>

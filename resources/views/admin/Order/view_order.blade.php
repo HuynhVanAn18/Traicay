@@ -34,7 +34,7 @@
                                   <table class="table">
                                     <thead class=" text-primary">
                                       <th>
-                                        {{__('Tên khách hàng')}}
+                                        {{__('Tên người đặt')}}
                                       </th>
                                       <th>
                                         {{__('Số điện thoại')}}
@@ -46,13 +46,13 @@
                                     <tbody>
                                       <tr>
                                         <td>
-                                          {{$customer->customer_name}}
+                                          {{$customer->admin_name}}
                                         </td>
                                         <td>
-                                          {{$customer->customer_phone}}
+                                          {{$customer->admin_phone}}
                                         </td>
                                         <td>
-                                          {{$customer->customer_email}}
+                                          {{$customer->admin_email}}
                                         </td>
                                       </tr>
                                     </tbody>
@@ -222,25 +222,23 @@
                                   </table>
                                     <tr>
                                       <td colspan="6" style="margin-left: 600px;">
-                                        @foreach($order as $key =>$or)
-                                        @if($or->order_status==1)
+                                        @if($order && $order->order_status==1)
                                         <form>
                                           @csrf
                                           <select class="form-control order_details">
-                                            <option id="{{$or->order_id}}" selected value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
+                                            <option id="{{$order->order_id}}" selected value="1">{{__('Chưa xử lý')}}</option>
+                                            <option id="{{$order->order_id}}" value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @else
                                         <form>
                                           @csrf
                                           <select class="form-control order_details">
-                                            <option disabled id="{{$or->order_id}}"  value="1">{{__('Chưa xử lý')}}</option>
-                                            <option id="{{$or->order_id}}" selected value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
+                                            <option disabled id="{{$order->order_id}}"  value="1">{{__('Chưa xử lý')}}</option>
+                                            <option id="{{$order->order_id}}" selected value="2">{{__('Đã xử lý-Đã Giao Hàng')}}</option>
                                           </select>
                                         </form>
                                         @endif
-                                        @endforeach
                                       </td>
                                     </tr>
                                     </br>

@@ -79,7 +79,7 @@ Route::get('/view-history-order/{order_code}','App\Http\Controllers\CheckoutCont
 
 //Admin Dashboard
 Route::get('/admin','App\Http\Controllers\AuthController@login_auth');
-Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard')->middleware(['auth', 'admin']);
+Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 Route::get('/logout','App\Http\Controllers\AdminController@logout');
 Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
 Route::post('/filter-by-date','App\Http\Controllers\AdminController@filter_by_date');
