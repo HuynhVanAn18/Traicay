@@ -93,7 +93,7 @@ class CheckoutController extends Controller
                 $shipping_id = $ord->shipping_id;
                 $order_status = $ord->order_status;
             }
-            $customer = Customer::where('customer_id', $customer_id)->first();
+            $customer = \App\Models\Login::where('admin_id', $customer_id)->first();
             $shipping = Shipping::where('shipping_id', $shipping_id)->first();
 
             $order_details_product = OrderDetails::with('product')->where('order_code', $order_code)->get();
@@ -185,8 +185,8 @@ class CheckoutController extends Controller
         // Gửi email xác nhận đơn hàng đến khách hàng
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $title_mail = 'Đơn xác nhận mua hàng tại Fresh Fruit' . ' ' . $now;
-        $customer = Customer::find(Session::get('customer_id'));
-        $data['email'][] = $customer->customer_email;
+        $customer = \App\Models\Login::find(Session::get('customer_id'));
+        $data['email'][] = $customer->admin_email;
 
 
         // Lấy giỏ hàng từ session
@@ -209,50 +209,64 @@ class CheckoutController extends Controller
         }
 
 
-        // Tạo mảng để gửi thông tin giỏ hàng qua email
-        $Shipping_array = array(
-            'customer_name' => $customer->customer_name,
-            'fee' => $fee,
-            'shipping_name' => $data['shipping_name'],
-            'shipping_city' => $data['shipping_city'],
-            'shipping_address' => $data['shipping_address'],
-            'shipping_phone' => $data['shipping_phone'],
-            'shipping_email' => $data['shipping_email'],
-            'shipping_note' => $data['shipping_note'],
-            'shipping_method' => $data['shipping_method']
-        );
+        // // Tạo mảng để gửi thông tin giỏ hàng qua email
+        // $Shipping_array = array(
+        //     'customer_name' => $customer->admin_name,
+        //     'fee' => $fee,
+        //     'shipping_name' => $data['shipping_name'],
+        //     'shipping_city' => $data['shipping_city'],
+        //     'shipping_address' => $data['shipping_address'],
+        //     'shipping_phone' => $data['shipping_phone'],
+        //     'shipping_email' => $data['shipping_email'],
+        //     'shipping_note' => $data['shipping_note'],
+        //     'shipping_method' => $data['shipping_method']
+        // );
 
-        // Tạo mảng để gửi thông tin đơn hàng qua email
-        $ordercode_mail =  array(
-            'coupon_code' => $coupon_mail,
-            'coupon_number' => $coupon_number,
-            'order_code' => $checkout_code
+        // // Tạo mảng để gửi thông tin đơn hàng qua email
+        // $ordercode_mail =  array(
+        //     'coupon_code' => $coupon_mail,
+        //     'coupon_number' => $coupon_number,
+        //     'order_code' => $checkout_code
 
-        );
+        // );
 
         // Gửi email xác nhận đơn hàng 
-        try {
-            Mail::send(
-                'pages.email.send_mail',
-                ['cart_array' => $cart_array, 'Shipping_array' => $Shipping_array, 'ordercode_mail' => $ordercode_mail],
-                function ($message) use ($title_mail, $data) {
-                    $message->to($data['email'])->subject($title_mail);
-                    $message->from($data['email'], $title_mail);
-                }
-            );
-        } catch (\Exception $e) {
-            // Nếu gửi email thất bại, xóa dữ liệu đơn hàng khỏi session
-            Session::forget('coupon');
-            Session::forget('fee');
-            Session::forget('cart');
-            Log::error('Send mail failed: ' . $e->getMessage());
-            return response()->json(['error' => 'Gửi email thất bại. Đã xóa dữ liệu đơn hàng khỏi session.'], 500);
-        }
+        // try {
+        //     Mail::send(
+        //         'pages.email.send_mail',
+        //         ['cart_array' => $cart_array, 'Shipping_array' => $Shipping_array, 'ordercode_mail' => $ordercode_mail],
+        //         function ($message) use ($title_mail, $data) {
+        //             $message->to($data['email'])->subject($title_mail);
+        //             $message->from($data['email'], $title_mail);
+        //         }
+        //     );
+        // } catch (\Exception $e) {
+        //     // Nếu gửi email thất bại, xóa dữ liệu đơn hàng khỏi session
+        //     Session::forget('coupon');
+        //     Session::forget('fee');
+        //     Session::forget('cart');
+        //     Log::error('Send mail failed: ' . $e->getMessage());
+        //     return response()->json(['error' => 'Gửi email thất bại. Đã xóa dữ liệu đơn hàng khỏi session.'], 500);
+        // }
+
+        // Log session state before clearing
+        \Log::debug('Session before clearing cart:', [
+            'cart' => Session::get('cart'),
+            'fee' => Session::get('fee'),
+            'coupon' => Session::get('coupon'),
+        ]);
 
         // Sau khi gửi email thành công, xóa dữ liệu đơn hàng khỏi session
         Session::forget('coupon');
         Session::forget('fee');
         Session::forget('cart');
+
+        // Log session state after clearing
+        \Log::debug('Session after clearing cart:', [
+            'cart' => Session::get('cart'),
+            'fee' => Session::get('fee'),
+            'coupon' => Session::get('coupon'),
+        ]);
 
         // Điều hướng đến trang xác nhận đơn hàng sau khi lưu đơn hàng thành công
         return redirect()->route('order.confirmation')->with('cart', $cart); 

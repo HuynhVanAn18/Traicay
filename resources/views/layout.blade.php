@@ -711,19 +711,20 @@ const provinceCoordinate = [
 // Hàm này sẽ được gọi mỗi khi người dùng chọn tỉnh thành mới 
 function calculateShippingFee(selectedProvinceCode) {
     const origin = provinceCoordinate.find((item) => item.code === 92); // Cần Thơ
-    const destination = provinceCoordinate.find((item) => item.code == selectedProvinceCode);
+    console.log("Selected Province Code:", selectedProvinceCode);
+    console.log("Origin:", origin);
+    // Convert to number for robust comparison
+    const provinceCodeNum = Number(selectedProvinceCode);
+    if (provinceCodeNum === 92) {
+        // Nếu tỉnh được chọn là Cần Thơ, không cần tính phí vận chuyển
+        updateFeeUIAndSession(0);
+        return;
+    }
+    const destination = provinceCoordinate.find((item) => item.code == provinceCodeNum);
     if (!origin || !destination) {
         console.error("Origin or destination not found");
         return;
     }
-
-    // Nếu tỉnh được chọn là Cần Thơ, không cần tính phí vận chuyển
-    if (selectedProvinceCode == 92) {
-        var fee = 0;
-        updateFeeUIAndSession(fee);
-        return;
-    }
-
     fetch('https://api.openrouteservice.org/v2/directions/driving-car/geojson', {
         method: 'POST',
         headers: {
@@ -742,7 +743,10 @@ function calculateShippingFee(selectedProvinceCode) {
     .then(data => {
         const km = data.features[0].properties.summary.distance / 1000;
         let fee = 0;
-        if (km < 30) fee = 15000;
+        if (!km) fee = 0;
+        else if (km < 10) fee = 10000;
+        else if (km < 20) fee = 12000;
+        else if (km < 30) fee = 15000;
         else if (km < 50) fee = 25000;
         else if (km < 70) fee = 30000;
         else if (km < 100) fee = 35000;
@@ -757,8 +761,14 @@ function calculateShippingFee(selectedProvinceCode) {
 }
 
 function updateFeeUIAndSession(fee) {
+    // Đảm bảo fee luôn là số, nếu không thì gán 0
+    if (fee === null || fee === undefined || fee === '' || isNaN(fee)) {
+        fee = 0;
+    }
+    fee = Number(fee);
     // Cập nhật hiển thị phí vận chuyển trên giao diện
     $(".order_fee").val(fee);
+    console.log("Calculated fee:", fee);
     $("#shipping-fee").text(fee.toLocaleString() + ' VND');
     // Cập nhật phí vận chuyển vào session thông qua AJAX
     $.ajax({

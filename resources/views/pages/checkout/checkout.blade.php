@@ -161,12 +161,9 @@
                                         @endif
                                     @endforeach
                                 @endif
-                                <!-- <a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span id="shipping-fee">{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span> -->
-                                <!-- @if(Session::get('fee')) -->
-                                        <div class="checkout__order__products"><a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span id="shipping-fee">{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span>
-                                        </div>
-                                        <?php $total_after_fee = $total + Session::get('fee'); ?>
-                                        <!-- @endif  -->
+                                <div class="checkout__order__products"><a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>{{__('Phí Ship')}}: <span id="shipping-fee">{{ number_format(Session::get('fee', 0), 0, ',', '.') }} VNĐ</span>
+                                </div>
+                                <?php $total_after_fee = $total + (Session::get('fee', 0)); ?>
                                         <div class="checkout__order__products">{{__('Tổng Tiền Còn')}} :
                                             <span>
                                             @php 
@@ -189,10 +186,10 @@
                                           </span>
                                          </div>    
                                 @if(Session::get('customer_id'))
-                                    @if(Session::get('fee'))
-                                    <button type="button" class="send-order site-btn" name="send-order">{{__('Thanh Toán')}}</button>
+                                    @if(Session::has('fee'))
+                                        <button type="button" class="send-order site-btn" name="send-order">{{__('Thanh Toán')}}</button>
                                     @else 
-                                    <button type="button" class="site-btn null-fee" name="null-fee">{{__('Thanh Toán')}}</button>
+                                        <button type="button" class="site-btn null-fee" name="null-fee">{{__('Thanh Toán')}}</button>
                                     @endif
                                 @else 
                                     <button type="button" class="site-btn null-customer" name="null-customer">{{__('Thanh Toán')}}</button>
